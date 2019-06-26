@@ -57,6 +57,8 @@ services:
       # - ./certs-data:/data/letsencrypt
     volumes_from:
       - erpnext_app
+    depends_on:
+      - erpnext_app
     ports:
       - 80:80
       # If you need SSL connection
