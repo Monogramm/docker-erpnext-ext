@@ -19,6 +19,10 @@ variants=(
 	alpine
 )
 
+#### this is not the best practice to put password in a git repository
+#### so please be super careful with your code and docker-image
+#### PLEASE MAKE SURE YOUR REPOSITORY IN BOTH GITHUB AND DOCKERHUB IS SET TO PRIVATE
+git_password=
 
 # version_greater_or_equal A B returns whether A >= B
 function version_greater_or_equal() {
@@ -79,6 +83,10 @@ for latest in "${latests[@]}"; do
 					s/%%ERPNEXT_VERSION%%/'"$major"'/g;
 				' "$dir/Dockerfile"
 			fi
+
+			sed -ri -e '
+				s/%%GIT_PASSWORD%%/'"$git_password"'/g;
+			' "$dir/Dockerfile"
 
 			# Copy the docker files
 			for name in redis_cache.conf nginx.conf .env; do
