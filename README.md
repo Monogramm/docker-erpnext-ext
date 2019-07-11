@@ -14,7 +14,7 @@
 Docker image for ERPNext with additionnal apps.
 
 This image was inspired by several other containers developed by the community:
-* [emadshaaban92/docker-compose-erpnext](https://github.com/emadshaaban92/docker-compose-erpnext/) / [BizzoTech/docker-erpnext-ext](https://github.com/BizzoTech/docker-erpnext-ext) for the "_simple_" docker-compose setup
+* [emadshaaban92/docker-compose-erpnext](https://github.com/emadshaaban92/docker-compose-erpnext/) / [BizzoTech/docker-erpnext](https://github.com/BizzoTech/docker-erpnext) for the "_simple_" docker-compose setup
 * [donysukardi/docker-frappe](https://github.com/donysukardi/docker-frappe) for the alpine variant (actually the source for BizzoTech images)
 * [pipech/erpnext-docker-debian](https://github.com/pipech/erpnext-docker-debian) for the complete setup of apps and sites
 
@@ -22,7 +22,7 @@ Additional apps:
 * https://github.com/britlog/erpnext_france
 * https://github.com/vishdha/transport_management_system
 * https://github.com/DOKOS-IO/mautic
-* https://github.com/jvfiel/ERPNext-OCR (WIP due to https://github.com/jvfiel/ERPNext-OCR/issues/1)
+* https://github.com/Monogramm/ERPNext-OCR (WIP)
 
 Check base image [Monogramm/docker-erpnext](https://github.com/Monogramm/docker-erpnext) and [Monogramm/docker-frappe](https://github.com/Monogramm/docker-frappe) for details.
 
