@@ -2,7 +2,10 @@ version: "2"
 
 services:
   erpnext_app:
+    # For development or CI, build from local Dockerfile
     build: ./
+    # For production, download prebuilt image
+    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
     container_name: erpnext_app
     #restart: always
     ports:
@@ -16,6 +19,7 @@ services:
       - NODE_TYPE=app
       # Frappe setup
       - FRAPPE_APP_INIT=erpnext erpnext_france transport_management_system mautic
+      - FRAPPE_DEFAULT_PROTOCOL=http://
       - FRAPPE_DEFAULT_SITE=${ERPNEXT_SITE}
       - FRAPPE_LOGGING=1
       #- ADMIN_USER=Administrator
@@ -57,6 +61,8 @@ services:
       # - ./certs-data:/data/letsencrypt
     volumes_from:
       - erpnext_app
+    depends_on:
+      - erpnext_app
     ports:
       - 80:80
       # If you need SSL connection
@@ -81,7 +87,10 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_scheduler:
+    # For development or CI, build from local Dockerfile
     build: ./
+    # For production, download prebuilt image
+    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
     container_name: erpnext_scheduler
     #restart: always
     depends_on:
@@ -96,7 +105,10 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_default:
+    # For development or CI, build from local Dockerfile
     build: ./
+    # For production, download prebuilt image
+    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
     container_name: erpnext_worker_default
     #restart: always
     depends_on:
@@ -111,7 +123,10 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_long:
+    # For development or CI, build from local Dockerfile
     build: ./
+    # For production, download prebuilt image
+    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
     container_name: erpnext_worker_long
     #restart: always
     depends_on:
@@ -126,7 +141,10 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_short:
+    # For development or CI, build from local Dockerfile
     build: ./
+    # For production, download prebuilt image
+    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
     container_name: erpnext_worker_short
     #restart: always
     depends_on:
@@ -141,7 +159,10 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_socketio:
+    # For development or CI, build from local Dockerfile
     build: ./
+    # For production, download prebuilt image
+    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
     container_name: erpnext_socketio
     #restart: always
     ports:
