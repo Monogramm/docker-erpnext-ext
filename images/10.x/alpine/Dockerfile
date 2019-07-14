@@ -1,4 +1,4 @@
-FROM monogramm/docker-erpnext:11-alpine
+FROM monogramm/docker-erpnext:10-alpine
 
 LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>"
 

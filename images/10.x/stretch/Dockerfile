@@ -1,4 +1,4 @@
-FROM monogramm/docker-erpnext:11-stretch
+FROM monogramm/docker-erpnext:10-stretch
 
 LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>"
 
