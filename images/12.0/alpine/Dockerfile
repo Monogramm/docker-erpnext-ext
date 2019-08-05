@@ -1,4 +1,4 @@
-FROM monogramm/docker-erpnext:develop-stretch-slim
+FROM monogramm/docker-erpnext:12-alpine
 
 LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>"
 
