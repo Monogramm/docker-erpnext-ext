@@ -22,6 +22,7 @@ variants=(
 #### this is not the best practice to put password in a git repository
 #### so please be super careful with your code and docker-image
 #### PLEASE MAKE SURE YOUR REPOSITORY IN BOTH GITHUB AND DOCKERHUB IS SET TO PRIVATE
+git_login=
 git_password=
 
 # version_greater_or_equal A B returns whether A >= B
@@ -63,7 +64,7 @@ for latest in "${latests[@]}"; do
 			mkdir -p "$dir"
 
 			# Copy the docker files
-			for name in redis_cache.conf nginx.conf .env; do
+			for name in redis_cache.conf nginx.conf .env install_private_app.sh; do
 				cp "docker-$name" "$dir/$name"
 				chmod 755 "$dir/$name"
 				sed -i \
@@ -100,7 +101,9 @@ for latest in "${latests[@]}"; do
 				' "$dir/Dockerfile" "$dir/docker-compose.yml"
 			fi
 
+			# Update git login / password if retrieving any private apps
 			sed -ri -e '
+				s/%%GIT_LOGIN%%/'"$git_login"'/g;
 				s/%%GIT_PASSWORD%%/'"$git_password"'/g;
 			' "$dir/Dockerfile"
 
