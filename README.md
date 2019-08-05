@@ -63,6 +63,32 @@ This image does not contain the database for ERPNext. You need to use either an 
 
 This image is designed to be used in a micro-service environment using docker-compose. There are basically 2 variants of the image you can choose from: `alpine` or `debian`.
 
+This image can also be used as a template to build your own extended ERPNext image.
+
+### Import private repository
+
+This repository provides sample configuration and scripts for importing private frappe apps to ERPNext.
+You can import private repositories through the following methods:
+* HTTPS login / password
+* SSH Key
+
+> :warning: **Note: PLEASE MAKE SURE YOUR REPOSITORY IN BOTH GITHUB AND DOCKERHUB IS SET TO PRIVATE**
+
+#### HTTPS
+
+In order to pass the login and password to git, first:
+* `Dockerfile-***.template`: Uncomment the `For private repository: SSH` section
+
+Then, you have two choices to set your login password:
+1. `hooks/build` (RECOMMENDED): DockerHub build hook to retrieve Git Login and Password environment and pass them. You do not store the login/password in git, but simply set environment variables in DockerHub.
+2. `update.sh`: Update the `git_login` and `git_password` to store password in Dockerfile. This is not the best practice to put password in a git repository so please be super careful with your code and make sure to keep your reposiroty private.
+
+#### SSH
+
+* `Dockerfile-***.template`: Uncomment the `For private repository: SSH` section
+* Add your SSH deploy in `.ssh` at root of directory. This is not the best practice to put SSH keys in a git repository so please be super careful with your code and make sure to keep your reposiroty private.
+
+
 # Running this image with docker-compose
 
 * Select the version closest to what you want in the images folder

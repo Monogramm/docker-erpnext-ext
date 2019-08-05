@@ -1,6 +1,21 @@
 FROM monogramm/docker-erpnext:12-debian-slim
 
-LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>"
+ARG VCS_REF
+ARG BUILD_DATE
+ARG VERSION=12
+
+LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>" \
+      product="ERPNext extended with additional apps" \
+      version=$VERSION \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/Monogramm/docker-erpnext-ext" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.name="ERPNext extended with additional apps" \
+      org.label-schema.description="Open Source ERP built for the web, supports manufacturing, distribution, retail, trading, services, education, non profits and healthcare." \
+      org.label-schema.url="https://erpnext.com/" \
+      org.label-schema.vendor="Frappé Technologies Pvt. Ltd" \
+      org.label-schema.version=$VERSION \
+      org.label-schema.schema-version="1.0"
 
 ### For public repository > Start ###
 

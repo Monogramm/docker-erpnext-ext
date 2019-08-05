@@ -72,8 +72,6 @@ for latest in "${latests[@]}"; do
 				"$dir/$name"
 			done
 
-			cp ".dockerignore" "$dir/.dockerignore"
-
 			case $latest in
 				10.*|11.*) cp "docker-compose_mariadb.yml" "$dir/docker-compose.yml";;
 				*) cp "docker-compose_${compose[$variant]}.yml" "$dir/docker-compose.yml";;
@@ -81,6 +79,9 @@ for latest in "${latests[@]}"; do
 
 			template="Dockerfile-${base[$variant]}.template"
 			cp "$template" "$dir/Dockerfile"
+
+			cp ".dockerignore" "$dir/.dockerignore"
+			cp -r "./hooks" "$dir/hooks"
 
 			# Replace the variables.
 			if [ "$latest" = "develop" ]; then
