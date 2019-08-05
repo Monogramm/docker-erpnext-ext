@@ -1,8 +1,8 @@
-FROM monogramm/docker-erpnext:11-alpine
+FROM monogramm/docker-erpnext:10-debian
 
 ARG VCS_REF
 ARG BUILD_DATE
-ARG VERSION=11
+ARG VERSION=10
 
 LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>" \
       product="ERPNext extended with additional apps" \
@@ -44,7 +44,7 @@ RUN set -ex; \
 #    sudo chmod +x \
 #        /home/$FRAPPE_USER/install_private_app.sh \
 #    ; \
-#    sudo apk add --update expect; \
+#    sudo apt-get install -y expect; \
 #    sync && /home/$FRAPPE_USER/install_private_app.sh \
 #        $git_login \
 #        $git_password \

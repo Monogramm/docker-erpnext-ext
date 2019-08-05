@@ -1,4 +1,4 @@
-FROM monogramm/docker-erpnext:11-alpine
+FROM monogramm/docker-erpnext:11-debian
 
 ARG VCS_REF
 ARG BUILD_DATE
@@ -44,7 +44,7 @@ RUN set -ex; \
 #    sudo chmod +x \
 #        /home/$FRAPPE_USER/install_private_app.sh \
 #    ; \
-#    sudo apk add --update expect; \
+#    sudo apt-get install -y expect; \
 #    sync && /home/$FRAPPE_USER/install_private_app.sh \
 #        $git_login \
 #        $git_password \

@@ -1,8 +1,8 @@
-FROM monogramm/docker-erpnext:11-alpine
+FROM monogramm/docker-erpnext:12-alpine
 
 ARG VCS_REF
 ARG BUILD_DATE
-ARG VERSION=11
+ARG VERSION=12
 
 LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>" \
       product="ERPNext extended with additional apps" \
