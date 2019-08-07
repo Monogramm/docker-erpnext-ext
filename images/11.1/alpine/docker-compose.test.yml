@@ -5,6 +5,18 @@ services:
   sut:
     build: ./
     command: /.docker_test.sh
+    depends_on:
+      - erpnext_db
+      - erpnext_app
+      - erpnext_web
+      - erpnext_scheduler
+      - erpnext_worker_default
+      - erpnext_worker_long
+      - erpnext_worker_short
+      - erpnext_socketio
+      - erpnext_redis_cache
+      - erpnext_redis_queue
+      - erpnext_redis_socketio
 
   erpnext_app:
     # For development or CI, build from local Dockerfile
