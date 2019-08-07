@@ -17,9 +17,18 @@ LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
+ADD docker_test.sh /.docker_test.sh
+
 ### For public repository > Start ###
 
 RUN set -ex; \
+    sudo chmod 755 /home/$FRAPPE_USER/.docker_test.sh; \
+    sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \
+    sudo touch "/home/$FRAPPE_USER"/frappe-bench/logs/bench.log; \
+    sudo chmod 777 \
+        "/home/$FRAPPE_USER"/frappe-bench/logs \
+        "/home/$FRAPPE_USER"/frappe-bench/logs/* \
+    ; \
     bench get-app https://github.com/britlog/erpnext_france; \
     bench get-app https://github.com/vishdha/transport_management_system; \
     bench get-app https://github.com/DOKOS-IO/mautic
