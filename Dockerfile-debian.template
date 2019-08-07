@@ -17,9 +17,18 @@ LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
+ADD docker_test.sh /.docker_test.sh
+
 ### For public repository > Start ###
 
 RUN set -ex; \
+    sudo chmod 755 /.docker_test.sh; \
+    sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \
+    sudo touch "/home/$FRAPPE_USER"/frappe-bench/logs/bench.log; \
+    sudo chmod 777 \
+        "/home/$FRAPPE_USER"/frappe-bench/logs \
+        "/home/$FRAPPE_USER"/frappe-bench/logs/* \
+    ; \
     sudo apt-get update -q; \
     sudo apt-get install -y --no-install-recommends \
         imagemagick \

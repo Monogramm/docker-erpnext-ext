@@ -82,6 +82,8 @@ for latest in "${latests[@]}"; do
 
 			cp ".dockerignore" "$dir/.dockerignore"
 			cp -r "./hooks" "$dir/hooks"
+			cp -r "docker_test.sh" "$dir/docker_test.sh"
+			cp -r "docker-compose.test.yml" "$dir/docker-compose.test.yml"
 
 			# Replace the variables.
 			if [ "$latest" = "develop" ]; then
