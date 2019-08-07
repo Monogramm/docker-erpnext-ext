@@ -22,7 +22,7 @@ ADD docker_test.sh /.docker_test.sh
 ### For public repository > Start ###
 
 RUN set -ex; \
-    sudo chmod 755 /home/$FRAPPE_USER/.docker_test.sh; \
+    sudo chmod 755 /.docker_test.sh; \
     sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \
     sudo touch "/home/$FRAPPE_USER"/frappe-bench/logs/bench.log; \
     sudo chmod 777 \
