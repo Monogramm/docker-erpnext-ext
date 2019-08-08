@@ -18,6 +18,11 @@ LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
+# Build environment variables
+ENV DOCKER_TAG=${TAG} \
+    DOCKER_VCS_REF=${VCS_REF} \
+    DOCKER_BUILD_DATE=${BUILD_DATE}
+
 ADD docker_test.sh /.docker_test.sh
 
 ### For public repository > Start ###
