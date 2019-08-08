@@ -3,7 +3,13 @@ version: "2"
 services:
   # https://docs.docker.com/docker-hub/builds/automated-testing/
   sut:
-    build: ./
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        git_login: ${GIT_LOGIN}
+        git_password: ${GIT_PASSWORD}
+        TAG: ${DOCKER_TAG}
     command: /.docker_test.sh
     depends_on:
       - erpnext_db
@@ -17,12 +23,12 @@ services:
       - erpnext_redis_cache
       - erpnext_redis_queue
       - erpnext_redis_socketio
+    environment:
+      # Docker setup
+      - DOCKER_APPS_TIMEOUT=900
 
   erpnext_app:
-    # For development or CI, build from local Dockerfile
-    build: ./
-    # For production, download prebuilt image
-    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%% 
+    image: ${IMAGE_NAME}
     container_name: erpnext_app
     command: app
     #restart: always
@@ -102,10 +108,7 @@ services:
       - /srv/erpnext/db:/var/lib/mysql
 
   erpnext_scheduler:
-    # For development or CI, build from local Dockerfile
-    build: ./
-    # For production, download prebuilt image
-    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
+    image: ${IMAGE_NAME}
     container_name: erpnext_scheduler
     command: scheduler
     #restart: always
@@ -117,10 +120,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_default:
-    # For development or CI, build from local Dockerfile
-    build: ./
-    # For production, download prebuilt image
-    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
+    image: ${IMAGE_NAME}
     container_name: erpnext_worker_default
     command: worker-default
     #restart: always
@@ -135,10 +135,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_long:
-    # For development or CI, build from local Dockerfile
-    build: ./
-    # For production, download prebuilt image
-    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
+    image: ${IMAGE_NAME}
     container_name: erpnext_worker_long
     command: worker-long
     #restart: always
@@ -153,10 +150,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_short:
-    # For development or CI, build from local Dockerfile
-    build: ./
-    # For production, download prebuilt image
-    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
+    image: ${IMAGE_NAME}
     container_name: erpnext_worker_short
     command: worker-short
     #restart: always
@@ -171,10 +165,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   erpnext_socketio:
-    # For development or CI, build from local Dockerfile
-    build: ./
-    # For production, download prebuilt image
-    #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
+    image: ${IMAGE_NAME}
     container_name: erpnext_socketio
     command: node-socketio
     #restart: always
