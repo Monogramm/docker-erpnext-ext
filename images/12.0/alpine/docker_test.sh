@@ -1,8 +1,5 @@
 #!/usr/bin/sh
 
-# Verify that the docker containers are running properly
-echo 'Wait until sites and apps database installed (9-10 minutes)' && sleep 500
-
 if [ ! -f "${FRAPPE_WD}/sites/apps.txt" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-app-init" ]; then
     echo 'Apps were not installed in time!'
     exit -1
