@@ -1,5 +1,6 @@
 FROM monogramm/docker-erpnext:10-alpine
 
+ARG TAG
 ARG VCS_REF
 ARG BUILD_DATE
 ARG VERSION=10

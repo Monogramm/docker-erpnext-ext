@@ -1,5 +1,6 @@
 FROM monogramm/docker-erpnext:10-debian-slim
 
+ARG TAG
 ARG VCS_REF
 ARG BUILD_DATE
 ARG VERSION=10
