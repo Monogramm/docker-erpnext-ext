@@ -23,6 +23,7 @@ Additional apps:
 * https://github.com/vishdha/transport_management_system
 * https://github.com/DOKOS-IO/mautic
 * https://github.com/Monogramm/ERPNext-OCR (WIP)
+* https://github.com/Monogramm/erpnext_autoinstall
 
 Check base image [Monogramm/docker-erpnext](https://github.com/Monogramm/docker-erpnext) and [Monogramm/docker-frappe](https://github.com/Monogramm/docker-frappe) for details.
 
