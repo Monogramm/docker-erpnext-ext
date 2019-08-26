@@ -83,6 +83,8 @@ services:
       - MYSQL_PASSWORD=${ERPNEXT_DB_PWD}
     volumes:
       - /srv/erpnext/db:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
 
   erpnext_scheduler:
     # For development or CI, build from local Dockerfile
