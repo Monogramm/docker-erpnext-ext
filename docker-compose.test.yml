@@ -10,7 +10,7 @@ services:
       #  git_login: ${GIT_LOGIN}
       #  git_password: ${GIT_PASSWORD}
       #  TAG: ${DOCKER_TAG}
-    command: /.docker_test.sh
+    command: /docker_test.sh
     depends_on:
       - erpnext_db
       - erpnext_app
