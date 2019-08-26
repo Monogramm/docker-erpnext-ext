@@ -4,9 +4,9 @@ echo "Waiting to ensure everything is fully ready for the tests..."
 sleep 60
 
 echo "Checking content of sites directory..."
-if [ ! -f "${FRAPPE_WD}/sites/apps.txt" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-app-init" ] || [ ! -f "${FRAPPE_WD}/sites/currentsite.txt" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-site-init" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-init" ]; then
+if [ ! -f "./sites/apps.txt" ] || [ ! -f "./sites/.docker-app-init" ] || [ ! -f "./sites/currentsite.txt" ] || [ ! -f "./sites/.docker-site-init" ] || [ ! -f "./sites/.docker-init" ]; then
     echo 'Apps and site are not initalized?!'
-    ls -al "${FRAPPE_WD}/sites"
+    ls -al "./sites"
     # FIXME We couldn't be running tests if those files did not existd... so why are they not visible?!
     #exit 1
 fi
