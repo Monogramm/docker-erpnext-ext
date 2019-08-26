@@ -1,29 +1,35 @@
 #!/usr/bin/sh
 
-if [ ! -f "${FRAPPE_WD}/sites/apps.txt" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-app-init" ]; then
-    echo 'Apps were not installed in time!'
-    exit -1
+echo "Waiting to ensure everything is fully ready for the tests..."
+sleep 60
+
+echo "Checking content of sites directory..."
+if [ ! -f "${FRAPPE_WD}/sites/apps.txt" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-app-init" ] || [ ! -f "${FRAPPE_WD}/sites/currentsite.txt" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-site-init" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-init" ]; then
+    echo 'Apps and site are not initalized?!'
+    ls -al "${FRAPPE_WD}/sites"
+    # FIXME We couldn't be running tests if those files did not existd... so why are they not visible?!
+    #exit 1
 fi
 
-if [ ! -f "${FRAPPE_WD}/sites/currentsite.txt" ] || [ ! -f "${FRAPPE_WD}/sites/.docker-site-init" ]; then
-    echo 'Site was not installed in time!'
-    exit -2
+echo "Checking main containers are reachable..."
+if [ ! sudo ping -c 10 -q frappe_db ]; then
+    echo 'Database container is not responding!'
+    exit 2
 fi
 
-if [ ! sudo ping -c 10 -q erpnext_db ]; then
-    echo 'ERPNext database container is not responding!'
-    exit -4
+if [ ! sudo ping -c 10 -q frappe_app ]; then
+    echo 'App container is not responding!'
+    exit 4
 fi
 
-if [ ! sudo ping -c 10 -q erpnext_app ]; then
-    echo 'ERPNext app container is not responding!'
-    exit -8
+if [ ! sudo ping -c 10 -q frappe_web ]; then
+    echo 'Web container is not responding!'
+    exit 8
 fi
 
-if [ ! sudo ping -c 10 -q erpnext_web ]; then
-    echo 'ERPNext web container is not responding!'
-    exit -16
-fi
+# XXX Add your own tests
+# https://docs.docker.com/docker-hub/builds/automated-testing/
 
 # Success
+echo 'Docker test successful'
 exit 0

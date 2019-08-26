@@ -6,10 +6,10 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
-        git_login: ${GIT_LOGIN}
-        git_password: ${GIT_PASSWORD}
-        TAG: ${DOCKER_TAG}
+      #args:
+      #  git_login: ${GIT_LOGIN}
+      #  git_password: ${GIT_PASSWORD}
+      #  TAG: ${DOCKER_TAG}
     command: /.docker_test.sh
     depends_on:
       - erpnext_db
@@ -26,6 +26,10 @@ services:
     environment:
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes:
+      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
 
   erpnext_app:
     image: ${IMAGE_NAME}
