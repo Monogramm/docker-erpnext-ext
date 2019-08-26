@@ -17,12 +17,12 @@ LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
-ADD docker_test.sh /.docker_test.sh
+ADD docker_test.sh /docker_test.sh
 
 ### For public repository > Start ###
 
 RUN set -ex; \
-    sudo chmod 755 /.docker_test.sh; \
+    sudo chmod 755 /docker_test.sh; \
     sudo apk add --update \
         imagemagick \
         tesseract-ocr \
