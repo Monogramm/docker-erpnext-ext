@@ -31,8 +31,13 @@ RUN set -ex; \
     sudo chmod 755 /docker_test.sh; \
     sudo apt-get update -q; \
     sudo apt-get install -y --no-install-recommends \
+        ghostscript \
         imagemagick \
         tesseract-ocr \
+    ; \
+    sudo sed -i \
+        -e 's/rights="none" pattern="PDF"/rights="read" pattern="PDF"/g' \
+        /etc/ImageMagick*/policy.xml \
     ; \
     sudo rm -rf /var/lib/apt/lists/*; \
     sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \

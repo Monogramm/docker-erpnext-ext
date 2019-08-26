@@ -30,8 +30,14 @@ ADD docker_test.sh /docker_test.sh
 RUN set -ex; \
     sudo chmod 755 /docker_test.sh; \
     sudo apk add --update \
+        ghostscript \
         imagemagick \
+        imagemagick-dev \
         tesseract-ocr \
+    ; \
+    sudo sed -i \
+        -e 's/rights="none" pattern="PDF"/rights="read" pattern="PDF"/g' \
+        /etc/ImageMagick*/policy.xml \
     ; \
     sudo rm -rf /var/lib/apt/lists/*; \
     sudo rm -rf /var/cache/apk/*; \
