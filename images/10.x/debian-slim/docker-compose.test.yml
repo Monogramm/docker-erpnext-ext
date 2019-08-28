@@ -6,10 +6,6 @@ services:
     build:
       context: ./test
       dockerfile: Dockerfile
-      args:
-        #git_login: ${GIT_LOGIN}
-        #git_password: ${GIT_PASSWORD}
-        TAG: ${DOCKER_TAG}
     command: sh /docker_test.sh
     depends_on:
       - erpnext_db

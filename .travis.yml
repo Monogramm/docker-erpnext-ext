@@ -15,20 +15,31 @@ before_script:
 
 script:
   - cd "$dir"
+  # Test container build
   - travis_retry travis_wait 60 docker-compose build
   - docker images
+  # Test container run
   - travis_retry docker-compose up -d && sleep 60
   - docker-compose ps
   - docker-compose logs
   - docker-compose ps "erpnext_db" | grep "Up" || exit 1
   - docker-compose ps "erpnext_app" | grep "Up" || exit 1
   - docker-compose ps "erpnext_web" | grep "Up" || exit 1
-  - echo 'Wait until sites and apps database installed (9-10 minutes)' && sleep 500
+  - echo 'Wait until sites and apps database installed (11-12 minutes)' && sleep 720
   - docker-compose ps
   - docker-compose logs
   - docker-compose ps "erpnext_db" | grep "Up"
   - docker-compose ps "erpnext_app" | grep "Up"
   - docker-compose ps "erpnext_web" | grep "Up"
+  - docker-compose ps "sut" | grep "Exit 0"
+  # Test container restart
+  - docker-compose down
+  - travis_retry docker-compose up -d && sleep 60
+  - docker-compose ps
+  - docker-compose logs
+  - docker-compose ps "erpnext_db" | grep "Up" || exit 1
+  - docker-compose ps "erpnext_app" | grep "Up" || exit 1
+  - docker-compose ps "erpnext_web" | grep "Up" || exit 1
 
 notifications:
   email: false
