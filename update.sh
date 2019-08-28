@@ -102,7 +102,7 @@ for latest in "${latests[@]}"; do
 				sed -ri -e '
 					s/%%VARIANT%%/'"$variant"'/g;
 					s/%%ERPNEXT_VERSION%%/'"$major"'/g;
-				' "$dir/Dockerfile" "$dir/docker-compose.yml"
+				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose.yml"
 			fi
 
 			# Update git login / password if retrieving any private apps
