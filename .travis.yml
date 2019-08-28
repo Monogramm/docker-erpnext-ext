@@ -40,6 +40,7 @@ script:
   - docker-compose ps "erpnext_db" | grep "Up" || exit 1
   - docker-compose ps "erpnext_app" | grep "Up" || exit 1
   - docker-compose ps "erpnext_web" | grep "Up" || exit 1
+  - docker-compose ps "sut" | grep "Exit 0"
 
 notifications:
   email: false
