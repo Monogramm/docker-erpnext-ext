@@ -28,7 +28,7 @@ script:
   - docker-compose ps "erpnext_db" | grep "Up" || exit 1
   - docker-compose ps "erpnext_app" | grep "Up" || exit 1
   - docker-compose ps "erpnext_web" | grep "Up" || exit 1
-  - travis_wait 15 echo 'Wait until sites and apps database installed (11-12 minutes)' && sleep 720
+  - echo 'Wait until sites and apps database installed (11-12 minutes)' && travis_wait 15 sleep 720
   - docker-compose ps
   - docker-compose logs
   - docker-compose ps "erpnext_db" | grep "Up"
