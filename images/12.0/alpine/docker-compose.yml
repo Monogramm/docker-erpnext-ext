@@ -4,10 +4,13 @@ services:
   # https://docs.docker.com/docker-hub/builds/automated-testing/
   sut:
     build:
-      context: ./
+      context: ./test
       dockerfile: Dockerfile
+      args:
+        #git_login: ${GIT_LOGIN}
+        #git_password: ${GIT_PASSWORD}
+        TAG: ${DOCKER_TAG}
     command: sh /docker_test.sh
-    container_name: sut
     depends_on:
       - erpnext_db
       - erpnext_app

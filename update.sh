@@ -82,22 +82,22 @@ for latest in "${latests[@]}"; do
 
 			cp ".dockerignore" "$dir/.dockerignore"
 			cp -r "./hooks" "$dir/hooks"
-			cp -r "docker_test.sh" "$dir/docker_test.sh"
+			cp -r "./test" "$dir/"
 			# XXX Only needed if you do not use travis for CI
-			#cp -r "docker-compose.test.yml" "$dir/docker-compose.test.yml"
+			cp -r "docker-compose.test.yml" "$dir/docker-compose.test.yml"
 
 			# Replace the variables.
 			if [ "$latest" = "develop" ]; then
 				sed -ri -e '
 					s/%%VARIANT%%/'"$variant"'/g;
 					s/%%ERPNEXT_VERSION%%/'"$latest"'/g;
-				' "$dir/Dockerfile" "$dir/docker-compose.yml"
+				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose.yml"
 			elif [ "$latest" = "10.x.x" ]; then
 				# FIXME https://github.com/frappe/frappe/issues/7737
 				sed -ri -e '
 					s/%%VARIANT%%/'"$variant"'/g;
 					s/%%ERPNEXT_VERSION%%/10/g;
-				' "$dir/Dockerfile" "$dir/docker-compose.yml"
+				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose.yml"
 			else
 				sed -ri -e '
 					s/%%VARIANT%%/'"$variant"'/g;

@@ -23,12 +23,9 @@ ENV DOCKER_TAG=${TAG} \
     DOCKER_VCS_REF=${VCS_REF} \
     DOCKER_BUILD_DATE=${BUILD_DATE}
 
-ADD docker_test.sh /docker_test.sh
-
 ### For public repository > Start ###
 
 RUN set -ex; \
-    sudo chmod 755 /docker_test.sh; \
     sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \
     sudo touch "/home/$FRAPPE_USER"/frappe-bench/logs/bench.log; \
     sudo chmod 777 \
