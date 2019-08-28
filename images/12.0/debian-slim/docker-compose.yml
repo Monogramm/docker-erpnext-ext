@@ -31,7 +31,12 @@ services:
 
   erpnext_app:
     # For development or CI, build from local Dockerfile
-    build: ./
+    #build:
+    #  context: ./
+    #  dockerfile: Dockerfile
+    #  args:
+    #    TAG: ${TRAVIS_BRANCH}
+    image: ${IMAGE_NAME}
     # For production, download prebuilt image
     #image: monogramm:docker-erpnext-ext:12-debian-slim 
     container_name: erpnext_app
@@ -116,7 +121,7 @@ services:
 
   erpnext_scheduler:
     # For development or CI, build from local Dockerfile
-    build: ./
+    image: ${IMAGE_NAME}
     # For production, download prebuilt image
     #image: monogramm:docker-erpnext-ext:12-debian-slim
     container_name: erpnext_scheduler
@@ -131,7 +136,7 @@ services:
 
   erpnext_worker_default:
     # For development or CI, build from local Dockerfile
-    build: ./
+    image: ${IMAGE_NAME}
     # For production, download prebuilt image
     #image: monogramm:docker-erpnext-ext:12-debian-slim
     container_name: erpnext_worker_default
@@ -149,7 +154,7 @@ services:
 
   erpnext_worker_long:
     # For development or CI, build from local Dockerfile
-    build: ./
+    image: ${IMAGE_NAME}
     # For production, download prebuilt image
     #image: monogramm:docker-erpnext-ext:12-debian-slim
     container_name: erpnext_worker_long
@@ -167,7 +172,7 @@ services:
 
   erpnext_worker_short:
     # For development or CI, build from local Dockerfile
-    build: ./
+    image: ${IMAGE_NAME}
     # For production, download prebuilt image
     #image: monogramm:docker-erpnext-ext:12-debian-slim
     container_name: erpnext_worker_short
@@ -185,7 +190,7 @@ services:
 
   erpnext_socketio:
     # For development or CI, build from local Dockerfile
-    build: ./
+    image: ${IMAGE_NAME}
     # For production, download prebuilt image
     #image: monogramm:docker-erpnext-ext:12-debian-slim
     container_name: erpnext_socketio

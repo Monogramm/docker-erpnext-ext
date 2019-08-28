@@ -12,11 +12,14 @@ branches:
 before_script:
   - env | sort
   - dir="images/${VERSION}/${VARIANT}"
+  - DOCKER_TAG=${VERSION}-${VARIANT}-travis
+  - IMAGE_NAME=docker-erpnext-ext-safer:${DOCKER_TAG}
 
 script:
   - cd "$dir"
   # Test container build
-  - travis_retry travis_wait 60 docker-compose build
+  - travis_retry travis_wait 80 docker build --build-arg TAG=${DOCKER_TAG} --build-arg VCS_REF=${TRAVIS_COMMIT} --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` -t $IMAGE_NAME .
+  #- travis_retry travis_wait 80 docker-compose build
   - docker images
   # Test container run
   - travis_retry docker-compose up -d && sleep 60
@@ -25,7 +28,7 @@ script:
   - docker-compose ps "erpnext_db" | grep "Up" || exit 1
   - docker-compose ps "erpnext_app" | grep "Up" || exit 1
   - docker-compose ps "erpnext_web" | grep "Up" || exit 1
-  - echo 'Wait until sites and apps database installed (11-12 minutes)' && sleep 720
+  - travis_wait 15 echo 'Wait until sites and apps database installed (11-12 minutes)' && sleep 720
   - docker-compose ps
   - docker-compose logs
   - docker-compose ps "erpnext_db" | grep "Up"
