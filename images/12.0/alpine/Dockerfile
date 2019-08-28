@@ -57,6 +57,7 @@ RUN set -ex; \
 #        /home/$FRAPPE_USER/install_private_app.sh \
 #    ; \
 #    sudo apk add --update expect; \
+#    set +x; \
 #    sync && /home/$FRAPPE_USER/install_private_app.sh \
 #        $git_login \
 #        $git_password \
