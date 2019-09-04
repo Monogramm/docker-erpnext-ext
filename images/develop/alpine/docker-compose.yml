@@ -43,6 +43,7 @@ services:
     # For production, download prebuilt image
     #image: monogramm:docker-erpnext-ext:develop-alpine
     container_name: erpnext_app
+    command: app
     #restart: always
     ports:
       - 8000:8000
