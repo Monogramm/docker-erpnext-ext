@@ -51,7 +51,7 @@ services:
       # Container setup
       - NODE_TYPE=app
       # Frappe setup
-      - FRAPPE_APP_INIT=erpnext erpnext_france transport_management_system mautic
+      - FRAPPE_APP_INIT=erpnext erpnext_france mautic
       - FRAPPE_DEFAULT_PROTOCOL=http://
       - FRAPPE_DEFAULT_SITE=${ERPNEXT_SITE}
       - FRAPPE_LOGGING=1
