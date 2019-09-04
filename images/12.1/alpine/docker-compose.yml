@@ -22,10 +22,13 @@ services:
       - erpnext_redis_queue
       - erpnext_redis_socketio
     environment:
+      # Container setup
+      - NODE_TYPE=sut
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -48,8 +51,6 @@ services:
     links:
       - erpnext_db
     environment:
-      # Container setup
-      - NODE_TYPE=app
       # Frappe setup
       - FRAPPE_APP_INIT=erpnext erpnext_france mautic
       - FRAPPE_DEFAULT_PROTOCOL=http://
@@ -132,8 +133,9 @@ services:
       - NODE_TYPE=scheduler
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -150,8 +152,9 @@ services:
       - NODE_TYPE=worker-default
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -168,8 +171,9 @@ services:
       - NODE_TYPE=worker-long
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -186,8 +190,9 @@ services:
       - NODE_TYPE=worker-short
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -206,8 +211,9 @@ services:
       - NODE_TYPE=node-socketio
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
