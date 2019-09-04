@@ -73,3 +73,6 @@ env: # Environments
   - VERSION=12.0 VARIANT=alpine
   - VERSION=12.0 VARIANT=debian-slim
   - VERSION=12.0 VARIANT=debian
+  - VERSION=12.1 VARIANT=alpine
+  - VERSION=12.1 VARIANT=debian-slim
+  - VERSION=12.1 VARIANT=debian
