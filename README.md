@@ -20,9 +20,11 @@ This image was inspired by several other containers developed by the community:
 
 Additional apps:
 * https://github.com/britlog/erpnext_france
-* https://github.com/vishdha/transport_management_system
 * https://github.com/DOKOS-IO/mautic
-* https://github.com/Monogramm/ERPNext-OCR (WIP)
+
+Possible additional apps:
+* https://github.com/vishdha/transport_management_system (removed due to [vishdha/transport_management_system#5](https://github.com/vishdha/transport_management_system/issues/5))
+* https://github.com/Monogramm/ERPNext-OCR
 
 Check base image [Monogramm/docker-erpnext](https://github.com/Monogramm/docker-erpnext) and [Monogramm/docker-frappe](https://github.com/Monogramm/docker-frappe) for details.
 

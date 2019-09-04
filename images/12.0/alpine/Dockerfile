@@ -33,7 +33,6 @@ RUN set -ex; \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
     bench get-app https://github.com/britlog/erpnext_france; \
-    bench get-app https://github.com/vishdha/transport_management_system; \
     bench get-app https://github.com/DOKOS-IO/mautic
 
 ### For public repository > End ###
