@@ -32,6 +32,10 @@ RUN set -ex; \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
+    sudo chown -R $FRAPPE_USER:$FRAPPE_USER \
+        "/home/$FRAPPE_USER"/frappe-bench/logs \
+        "/home/$FRAPPE_USER"/frappe-bench/logs/* \
+    ; \
     bench get-app https://github.com/britlog/erpnext_france; \
     bench get-app https://github.com/DOKOS-IO/mautic
 
