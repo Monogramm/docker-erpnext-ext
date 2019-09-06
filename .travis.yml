@@ -44,7 +44,17 @@ script:
   - docker-compose ps "erpnext_app" | grep "Up" || exit 1
   - docker-compose ps "erpnext_web" | grep "Up" || exit 1
   - echo 'Wait until test finished (1-2 minutes)' && sleep 90
+  - docker-compose logs "sut"
   - docker-compose ps "sut" | grep "Exit 0"
+  # Test container migrate, backup and restore
+  - docker-compose run --rm "erpnext_app" bench migrate --help
+  - docker-compose run --rm "erpnext_app" migrate
+  - docker-compose run --rm "erpnext_app" bench backup --help
+  - docker-compose run --rm "erpnext_app" backup && sleep 5
+  - docker-compose run --rm "erpnext_app" backup && sleep 5
+  - docker-compose run --rm "erpnext_app" backup && sleep 5
+  - docker-compose run --rm "erpnext_app" bench restore --help
+  - docker-compose run --rm "erpnext_app" restore 1
 
 notifications:
   email: false
