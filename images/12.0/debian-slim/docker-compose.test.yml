@@ -45,7 +45,7 @@ services:
       # Docker setup
       - DOCKER_DB_ALLOWED_HOSTS=172.%.%.%
       # Frappe setup
-      - FRAPPE_APP_INIT=erpnext erpnext_france transport_management_system mautic
+      - FRAPPE_APP_INIT=erpnext erpnext_france mautic
       - FRAPPE_DEFAULT_PROTOCOL=http://
       - FRAPPE_DEFAULT_SITE=${ERPNEXT_SITE}
       - FRAPPE_LOGGING=1
