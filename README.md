@@ -46,7 +46,7 @@ https://hub.docker.com/r/monogramm/docker-erpnext-ext/
     - `develop-alpine` `develop`
     - `develop-debian`
     - `develop-debian-slim`
-* ERPNext 12
+* ERPNext 12.0
     - `12-alpine` `12` `alpine` `latest`
     - `12-debian` `debian`
     - `12-debian-slim` `debian-slim`
