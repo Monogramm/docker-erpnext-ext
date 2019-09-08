@@ -22,10 +22,14 @@ services:
       - erpnext_redis_queue
       - erpnext_redis_socketio
     environment:
+      # Container setup
+      - NODE_TYPE=sut
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+      - DOCKER_DEBUG=1
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -40,6 +44,7 @@ services:
     # For production, download prebuilt image
     #image: monogramm:docker-erpnext-ext:%%ERPNEXT_VERSION%%-%%VARIANT%%
     container_name: erpnext_app
+    command: app
     #restart: always
     ports:
       - 8000:8000
@@ -48,10 +53,9 @@ services:
     links:
       - erpnext_db
     environment:
-      # Container setup
-      - NODE_TYPE=app
       # Frappe setup
-      - FRAPPE_APP_INIT=erpnext erpnext_france transport_management_system mautic
+      - FRAPPE_APP_INIT=erpnext erpnext_france mautic
+      - FRAPPE_APP_RESET=1
       - FRAPPE_DEFAULT_PROTOCOL=http://
       - FRAPPE_DEFAULT_SITE=${ERPNEXT_SITE}
       - FRAPPE_LOGGING=1
@@ -67,12 +71,14 @@ services:
       - DB_ROOT_LOGIN=${ERPNEXT_DB_ROOT_LOGIN}
       - DB_ROOT_PASSWORD=${ERPNEXT_DB_ROOT_PWD}
       # Mail setup
-      - MAIL_MUTED=true
+      - MAIL_MUTED=false
       - MAIL_HOST=${ERPNEXT_MAIL_HOST}
       - MAIL_PORT=587
       - MAIL_USE_SSL=tls
       - MAIL_LOGIN=${ERPNEXT_SMTP_USER}
       - MAIL_PASSWORD=${ERPNEXT_SMTP_PWD}
+      - MAIL_EMAIL_ID=${ERPNEXT_SMTP_USER}@${ERPNEXT_MAIL_HOST}
+      - MAIL_SENDER_NAME=ERPNext
       # Redis setup
       - REDIS_CACHE_HOST=erpnext_redis_cache
       - REDIS_QUEUE_HOST=erpnext_redis_queue
@@ -132,8 +138,9 @@ services:
       - NODE_TYPE=scheduler
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -150,8 +157,9 @@ services:
       - NODE_TYPE=worker-default
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -168,8 +176,9 @@ services:
       - NODE_TYPE=worker-long
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -186,8 +195,9 @@ services:
       - NODE_TYPE=worker-short
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -206,8 +216,9 @@ services:
       - NODE_TYPE=node-socketio
       # Docker setup
       - DOCKER_APPS_TIMEOUT=900
+    volumes_from:
+      - erpnext_app
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
