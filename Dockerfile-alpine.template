@@ -39,6 +39,10 @@ RUN set -ex; \
     bench get-app https://github.com/britlog/erpnext_france; \
     bench get-app https://github.com/DOKOS-IO/mautic
 
+VOLUME \
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public\
+    /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public
+
 ### For public repository > End ###
 
 
