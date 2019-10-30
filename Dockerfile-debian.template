@@ -23,22 +23,26 @@ ENV DOCKER_TAG=${TAG} \
     DOCKER_VCS_REF=${VCS_REF} \
     DOCKER_BUILD_DATE=${BUILD_DATE}
 
-ADD docker_test.sh /.docker_test.sh
-
 ### For public repository > Start ###
 
 RUN set -ex; \
-    sudo chmod 755 /.docker_test.sh; \
     sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \
     sudo touch "/home/$FRAPPE_USER"/frappe-bench/logs/bench.log; \
     sudo chmod 777 \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
+    sudo chown -R $FRAPPE_USER:$FRAPPE_USER \
+        "/home/$FRAPPE_USER"/frappe-bench/logs \
+        "/home/$FRAPPE_USER"/frappe-bench/logs/* \
+    ; \
     bench get-app https://github.com/britlog/erpnext_france; \
-    bench get-app https://github.com/vishdha/transport_management_system; \
     bench get-app https://github.com/DOKOS-IO/mautic; \
     bench get-app https://github.com/Monogramm/erpnext_autoinstall
+
+VOLUME \
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public\
+    /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public
 
 ### For public repository > End ###
 
@@ -61,6 +65,7 @@ RUN set -ex; \
 #        /home/$FRAPPE_USER/install_private_app.sh \
 #    ; \
 #    sudo apt-get install -y expect; \
+#    set +x; \
 #    sync && /home/$FRAPPE_USER/install_private_app.sh \
 #        $git_login \
 #        $git_password \
