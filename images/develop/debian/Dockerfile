@@ -21,7 +21,8 @@ LABEL maintainer="Monogramm Maintainers <opensource at monogramm dot io>" \
 # Build environment variables
 ENV DOCKER_TAG=${TAG} \
     DOCKER_VCS_REF=${VCS_REF} \
-    DOCKER_BUILD_DATE=${BUILD_DATE}
+    DOCKER_BUILD_DATE=${BUILD_DATE} \
+    TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
 
 ### For public repository > Start ###
 
@@ -30,8 +31,29 @@ RUN set -ex; \
     sudo apt-get install -y --no-install-recommends \
         ghostscript \
         imagemagick \
+        libmagickwand-dev \
         tesseract-ocr \
     ; \
+    mkdir -p $TESSDATA_PREFIX; \
+    sudo chown -R $FRAPPE_USER:$FRAPPE_USER $TESSDATA_PREFIX ; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/eng.traineddata -O $TESSDATA_PREFIX/eng.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/equ.traineddata -O $TESSDATA_PREFIX/equ.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/osd.traineddata -O $TESSDATA_PREFIX/osd.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/fra.traineddata -O $TESSDATA_PREFIX/fra.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/deu.traineddata -O $TESSDATA_PREFIX/deu.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/spa.traineddata -O $TESSDATA_PREFIX/spa.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/por.traineddata -O $TESSDATA_PREFIX/por.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/ita.traineddata -O $TESSDATA_PREFIX/ita.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/nld.traineddata -O $TESSDATA_PREFIX/nld.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/ara.traineddata -O $TESSDATA_PREFIX/ara.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/tur.traineddata -O $TESSDATA_PREFIX/tur.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/rus.traineddata -O $TESSDATA_PREFIX/rus.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/jpn.traineddata -O $TESSDATA_PREFIX/jpn.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/vie.traineddata -O $TESSDATA_PREFIX/vie.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/kor.traineddata -O $TESSDATA_PREFIX/kor.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/chi_sim.traineddata -O $TESSDATA_PREFIX/chi_sim.traineddata; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/chi_tra.traineddata -O $TESSDATA_PREFIX/chi_tra.traineddata; \
+    sudo chmod -R 755 $TESSDATA_PREFIX ; \
     sudo sed -i \
         -e 's/rights="none" pattern="PDF"/rights="read" pattern="PDF"/g' \
         /etc/ImageMagick*/policy.xml \
@@ -47,11 +69,12 @@ RUN set -ex; \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
+    bench get-app --branch develop https://github.com/Monogramm/erpnext_ocr; \
     bench get-app https://github.com/britlog/erpnext_france; \
-    bench get-app https://github.com/DOKOS-IO/mautic; \
-    bench get-app --branch develop https://github.com/Monogramm/erpnext_ocr
+    bench get-app https://github.com/DOKOS-IO/mautic
 
 VOLUME \
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_ocr/erpnext_ocr/public \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public\
     /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public
 
