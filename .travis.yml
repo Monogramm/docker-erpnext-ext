@@ -24,36 +24,44 @@ script:
   # Test container run
   - travis_retry docker-compose up -d && sleep 60
   - docker-compose ps
-  - docker-compose logs
+  - docker-compose logs "erpnext_db"
   - docker-compose ps "erpnext_db" | grep "Up" || exit 1
+  - docker-compose logs "erpnext_app"
   - docker-compose ps "erpnext_app" | grep "Up" || exit 1
+  - docker-compose logs "erpnext_web"
   - docker-compose ps "erpnext_web" | grep "Up" || exit 1
   - echo 'Wait until sites and apps database installed (11-12 minutes)' && travis_wait 15 sleep 720
   - docker-compose ps
-  - docker-compose logs
+  - docker-compose logs "erpnext_db"
   - docker-compose ps "erpnext_db" | grep "Up"
+  - docker-compose logs "erpnext_app"
   - docker-compose ps "erpnext_app" | grep "Up"
+  - docker-compose logs "erpnext_web"
   - docker-compose ps "erpnext_web" | grep "Up"
   - docker-compose ps "sut" | grep "Exit 0"
   # Test container restart
   - docker-compose down
   - travis_retry docker-compose up -d && sleep 60
   - docker-compose ps
-  - docker-compose logs
+  - docker-compose logs "erpnext_db"
   - docker-compose ps "erpnext_db" | grep "Up" || exit 1
+  - docker-compose logs "erpnext_app"
   - docker-compose ps "erpnext_app" | grep "Up" || exit 1
+  - docker-compose logs "erpnext_web"
   - docker-compose ps "erpnext_web" | grep "Up" || exit 1
   - echo 'Wait until test finished (1-2 minutes)' && sleep 90
   - docker-compose logs "sut"
   - docker-compose ps "sut" | grep "Exit 0"
-  # Test container migrate, backup and restore
+  # Test container migrate
   - docker-compose run --rm "erpnext_app" bench migrate --help
   - docker-compose run --rm "erpnext_app" migrate
+  # Test container backup
   - docker-compose run --rm "erpnext_app" bench backup --help
   - docker-compose run --rm "erpnext_app" backup && sleep 5
   - docker-compose run --rm "erpnext_app" backup && sleep 5
   - docker-compose run --rm "erpnext_app" backup && sleep 5
   - docker-compose run --rm "erpnext_app" bench restore --help
+  # Test container "old" restore (file number instead of file name)
   - docker-compose run --rm "erpnext_app" restore 1
 
 notifications:
