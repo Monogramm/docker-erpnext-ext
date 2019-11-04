@@ -13,7 +13,7 @@ before_script:
   - env | sort
   - dir="images/${VERSION}/${VARIANT}"
   - export DOCKER_TAG="${VERSION}-${VARIANT}-travis"
-  - export IMAGE_NAME="docker-erpnext-ext-safer:${DOCKER_TAG}"
+  - export IMAGE_NAME="docker-erpnext-ext-travis:${DOCKER_TAG}"
 
 script:
   - cd "$dir"
