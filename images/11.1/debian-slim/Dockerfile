@@ -41,8 +41,9 @@ RUN set -ex; \
     bench get-app https://github.com/Monogramm/erpnext_autoinstall
 
 VOLUME \
-    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public\
-    /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public \
+    /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public \
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_autoinstall/erpnext_autoinstall/public
 
 ### For public repository > End ###
 
