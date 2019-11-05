@@ -75,7 +75,7 @@ RUN set -ex; \
 
 VOLUME \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_ocr/erpnext_ocr/public \
-    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public\
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public \
     /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public
 
 ### For public repository > End ###
