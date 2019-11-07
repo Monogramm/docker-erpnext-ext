@@ -25,6 +25,7 @@ Additional apps:
 Possible additional apps:
 * https://github.com/vishdha/transport_management_system (removed due to [vishdha/transport_management_system#5](https://github.com/vishdha/transport_management_system/issues/5))
 * https://github.com/Monogramm/ERPNext-OCR
+* https://github.com/Monogramm/erpnext_autoinstall
 
 Check base image [Monogramm/docker-erpnext](https://github.com/Monogramm/docker-erpnext) and [Monogramm/docker-frappe](https://github.com/Monogramm/docker-frappe) for details.
 
