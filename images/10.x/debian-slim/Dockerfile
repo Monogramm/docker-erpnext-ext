@@ -36,11 +36,13 @@ RUN set -ex; \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
+    bench get-app https://github.com/Monogramm/erpnext_autoinstall; \
     bench get-app https://github.com/britlog/erpnext_france; \
     bench get-app https://github.com/DOKOS-IO/mautic
 
 VOLUME \
-    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public\
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_autoinstall/erpnext_autoinstall/public \
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public \
     /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public
 
 ### For public repository > End ###
