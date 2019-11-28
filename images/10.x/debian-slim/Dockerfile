@@ -33,6 +33,9 @@ RUN set -ex; \
         imagemagick \
         libmagickwand-dev \
         tesseract-ocr \
+        libtesseract-dev \
+        libleptonica-dev \
+        pkg-config \
     ; \
     mkdir -p $TESSDATA_PREFIX; \
     sudo chown -R $FRAPPE_USER:$FRAPPE_USER $TESSDATA_PREFIX ; \

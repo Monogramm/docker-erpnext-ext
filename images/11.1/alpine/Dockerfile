@@ -32,6 +32,9 @@ RUN set -ex; \
         imagemagick \
         imagemagick-dev \
         tesseract-ocr \
+        tesseract-ocr-dev \
+        leptonica \
+        pkgconfig \
     ; \
     mkdir -p $TESSDATA_PREFIX; \
     sudo chown -R $FRAPPE_USER:$FRAPPE_USER $TESSDATA_PREFIX ; \
