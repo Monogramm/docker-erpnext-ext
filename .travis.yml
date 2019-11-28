@@ -80,7 +80,7 @@ matrix:
     # FIXME https://github.com/frappe/frappe/issues/7737
     #- env: VERSION=10.x VARIANT=alpine
     #- env: VERSION=10.x VARIANT=debian-slim
-    #- env: VERSION=10.x VARIANT=debian
+    - env: VERSION=10.x VARIANT=debian
 
 env: # Environments
   - VERSION=develop VARIANT=alpine
