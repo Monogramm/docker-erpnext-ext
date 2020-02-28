@@ -36,6 +36,7 @@ dockerRepo="monogramm/docker-frappe"
 latests=( $( curl -fsSL 'https://api.github.com/repos/frappe/erpnext/tags' |tac|tac| \
 	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
 	sort -urV )
+	11.1.72
 	10.x.x
 	develop
 )
