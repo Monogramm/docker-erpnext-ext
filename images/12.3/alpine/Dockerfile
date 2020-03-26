@@ -2,6 +2,9 @@ FROM monogramm/docker-erpnext:12-alpine
 
 ### For public repository > Start ###
 
+# Build environment variables
+ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
+
 RUN set -ex; \
     sudo apk add --update \
         ghostscript \
@@ -12,6 +15,7 @@ RUN set -ex; \
         leptonica \
         pkgconfig \
     ; \
+    sudo rm -rf /var/cache/apk/*; \
     mkdir -p $TESSDATA_PREFIX; \
     sudo chown -R $FRAPPE_USER:$FRAPPE_USER $TESSDATA_PREFIX ; \
     wget -q https://raw.github.com/tesseract-ocr/tessdata/master/eng.traineddata -O $TESSDATA_PREFIX/eng.traineddata; \
@@ -36,8 +40,6 @@ RUN set -ex; \
         -e 's/rights="none" pattern="PDF"/rights="read" pattern="PDF"/g' \
         /etc/ImageMagick*/policy.xml \
     ; \
-    sudo rm -rf /var/lib/apt/lists/*; \
-    sudo rm -rf /var/cache/apk/*; \
     sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \
     sudo touch "/home/$FRAPPE_USER"/frappe-bench/logs/bench.log; \
     sudo chmod 777 \
