@@ -3,7 +3,11 @@ FROM monogramm/docker-erpnext:11-debian-slim
 ### For public repository > Start ###
 
 # Build environment variables
+
 ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
+
+ARG ERPNEXT_AUTOINSTALL_VERSION=1.1.0
+ARG ERPNEXT_OCR_VERSION=1.0.1
 
 RUN set -ex; \
     sudo apt-get update -q; \
@@ -17,26 +21,26 @@ RUN set -ex; \
         pkg-config \
     ; \
     sudo rm -rf /var/lib/apt/lists/*; \
-    mkdir -p $TESSDATA_PREFIX; \
-    sudo chown -R $FRAPPE_USER:$FRAPPE_USER $TESSDATA_PREFIX ; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/eng.traineddata -O $TESSDATA_PREFIX/eng.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/equ.traineddata -O $TESSDATA_PREFIX/equ.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/osd.traineddata -O $TESSDATA_PREFIX/osd.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/fra.traineddata -O $TESSDATA_PREFIX/fra.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/deu.traineddata -O $TESSDATA_PREFIX/deu.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/spa.traineddata -O $TESSDATA_PREFIX/spa.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/por.traineddata -O $TESSDATA_PREFIX/por.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/ita.traineddata -O $TESSDATA_PREFIX/ita.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/nld.traineddata -O $TESSDATA_PREFIX/nld.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/ara.traineddata -O $TESSDATA_PREFIX/ara.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/tur.traineddata -O $TESSDATA_PREFIX/tur.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/rus.traineddata -O $TESSDATA_PREFIX/rus.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/jpn.traineddata -O $TESSDATA_PREFIX/jpn.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/vie.traineddata -O $TESSDATA_PREFIX/vie.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/kor.traineddata -O $TESSDATA_PREFIX/kor.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/chi_sim.traineddata -O $TESSDATA_PREFIX/chi_sim.traineddata; \
-    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/chi_tra.traineddata -O $TESSDATA_PREFIX/chi_tra.traineddata; \
-    sudo chmod -R 755 $TESSDATA_PREFIX ; \
+    mkdir -p "$TESSDATA_PREFIX"; \
+    sudo chown -R "$FRAPPE_USER:$FRAPPE_USER" "$TESSDATA_PREFIX" ; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/eng.traineddata -O "$TESSDATA_PREFIX/eng.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/equ.traineddata -O "$TESSDATA_PREFIX/equ.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/osd.traineddata -O "$TESSDATA_PREFIX/osd.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/fra.traineddata -O "$TESSDATA_PREFIX/fra.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/deu.traineddata -O "$TESSDATA_PREFIX/deu.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/spa.traineddata -O "$TESSDATA_PREFIX/spa.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/por.traineddata -O "$TESSDATA_PREFIX/por.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/ita.traineddata -O "$TESSDATA_PREFIX/ita.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/nld.traineddata -O "$TESSDATA_PREFIX/nld.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/ara.traineddata -O "$TESSDATA_PREFIX/ara.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/tur.traineddata -O "$TESSDATA_PREFIX/tur.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/rus.traineddata -O "$TESSDATA_PREFIX/rus.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/jpn.traineddata -O "$TESSDATA_PREFIX/jpn.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/vie.traineddata -O "$TESSDATA_PREFIX/vie.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/kor.traineddata -O "$TESSDATA_PREFIX/kor.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/chi_sim.traineddata -O "$TESSDATA_PREFIX/chi_sim.traineddata"; \
+    wget -q https://raw.github.com/tesseract-ocr/tessdata/master/chi_tra.traineddata -O "$TESSDATA_PREFIX/chi_tra.traineddata"; \
+    sudo chmod -R 755 "$TESSDATA_PREFIX" ; \
     sudo sed -i \
         -e 's/rights="none" pattern="PDF"/rights="read" pattern="PDF"/g' \
         /etc/ImageMagick*/policy.xml \
@@ -47,14 +51,14 @@ RUN set -ex; \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
-    sudo chown -R $FRAPPE_USER:$FRAPPE_USER \
+    sudo chown -R "$FRAPPE_USER:$FRAPPE_USER" \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
-    bench get-app https://github.com/Monogramm/erpnext_autoinstall; \
+    bench get-app --branch "${ERPNEXT_AUTOINSTALL_VERSION:-master}" https://github.com/Monogramm/erpnext_autoinstall; \
     bench get-app https://github.com/britlog/erpnext_france; \
     bench get-app https://github.com/DOKOS-IO/mautic; \
-    bench get-app --branch master https://github.com/Monogramm/erpnext_ocr
+    bench get-app --branch "${ERPNEXT_OCR_VERSION:-master}" https://github.com/Monogramm/erpnext_ocr
 
 VOLUME \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_autoinstall/erpnext_autoinstall/public \
@@ -75,16 +79,16 @@ VOLUME \
 #ARG git_password=
 #
 ## Copy private install script
-#ADD install_private_app.sh /home/$FRAPPE_USER/install_private_app.sh
+#COPY install_private_app.sh /home/$FRAPPE_USER/install_private_app.sh
 #
 #### run private install script
 #RUN set -ex; \
 #    sudo chmod +x \
-#        /home/$FRAPPE_USER/install_private_app.sh \
+#        "/home/$FRAPPE_USER"/install_private_app.sh \
 #    ; \
 #    sudo apt-get install -y expect; \
 #    set +x; \
-#    sync && /home/$FRAPPE_USER/install_private_app.sh \
+#    sync && "/home/$FRAPPE_USER"/install_private_app.sh \
 #        $git_login \
 #        $git_password \
 #        your_app_name \
@@ -101,7 +105,7 @@ VOLUME \
 ##### this is not the best practice to put SSH keys in dockerfile
 ##### so please be super careful with your code and docker-image
 ##### PLEASE MAKE SURE YOUR REPOSITORY IN BOTH GITHUB AND DOCKERHUB IS SET TO PRIVATE
-#ADD .ssh /home/$FRAPPE_USER/
+#COPY .ssh /home/$FRAPPE_USER/
 #
 #### get app using SSH
 #RUN set -ex; \
