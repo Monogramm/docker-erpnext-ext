@@ -36,9 +36,15 @@ dockerRepo="monogramm/docker-frappe"
 latests=( $( curl -fsSL 'https://api.github.com/repos/frappe/erpnext/tags' |tac|tac| \
 	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
 	sort -urV )
-	11.1.72
+	11.1.x
 	10.x.x
 	develop
+)
+
+latestsAutoinstall=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/erpnext_autoinstall/tags' |tac|tac| \
+	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
+	sort -urV )
+	master
 )
 
 # Remove existing images
@@ -51,6 +57,8 @@ travisEnv=
 for latest in "${latests[@]}"; do
 	version=$(echo "$latest" | cut -d. -f1-2)
 	major=$(echo "$latest" | cut -d. -f1-1)
+
+	latestAutoinstall=${latestsAutoinstall[0]}
 
 	# Only add versions >= "$min_version"
 	if version_greater_or_equal "$version" "$min_version"; then
@@ -104,6 +112,11 @@ for latest in "${latests[@]}"; do
 					s/%%ERPNEXT_VERSION%%/'"$major"'/g;
 				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose.yml"
 			fi
+
+			# Update apps default version
+			sed -ri -e '
+				s/ERPNEXT_AUTOINSTALL_VERSION=.*/ERPNEXT_AUTOINSTALL_VERSION='"$latestAutoinstall"'/g;
+			' "$dir/Dockerfile"
 
 			# Update git login / password if retrieving any private apps
 			sed -ri -e '

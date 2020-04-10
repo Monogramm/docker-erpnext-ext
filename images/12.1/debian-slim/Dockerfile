@@ -2,6 +2,8 @@ FROM monogramm/docker-erpnext:12-debian-slim
 
 ### For public repository > Start ###
 
+ARG ERPNEXT_AUTOINSTALL_VERSION=1.1.0
+
 RUN set -ex; \
     sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \
     sudo touch "/home/$FRAPPE_USER"/frappe-bench/logs/bench.log; \
@@ -9,11 +11,11 @@ RUN set -ex; \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
-    sudo chown -R $FRAPPE_USER:$FRAPPE_USER \
+    sudo chown -R "$FRAPPE_USER:$FRAPPE_USER" \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
-    bench get-app https://github.com/Monogramm/erpnext_autoinstall; \
+    bench get-app --branch "${ERPNEXT_AUTOINSTALL_VERSION:-master}" https://github.com/Monogramm/erpnext_autoinstall; \
     bench get-app https://github.com/britlog/erpnext_france; \
     bench get-app https://github.com/DOKOS-IO/mautic
 
@@ -35,16 +37,16 @@ VOLUME \
 #ARG git_password=
 #
 ## Copy private install script
-#ADD install_private_app.sh /home/$FRAPPE_USER/install_private_app.sh
+#COPY install_private_app.sh /home/$FRAPPE_USER/install_private_app.sh
 #
 #### run private install script
 #RUN set -ex; \
 #    sudo chmod +x \
-#        /home/$FRAPPE_USER/install_private_app.sh \
+#        "/home/$FRAPPE_USER"/install_private_app.sh \
 #    ; \
 #    sudo apt-get install -y expect; \
 #    set +x; \
-#    sync && /home/$FRAPPE_USER/install_private_app.sh \
+#    sync && "/home/$FRAPPE_USER"/install_private_app.sh \
 #        $git_login \
 #        $git_password \
 #        your_app_name \
@@ -61,7 +63,7 @@ VOLUME \
 ##### this is not the best practice to put SSH keys in dockerfile
 ##### so please be super careful with your code and docker-image
 ##### PLEASE MAKE SURE YOUR REPOSITORY IN BOTH GITHUB AND DOCKERHUB IS SET TO PRIVATE
-#ADD .ssh /home/$FRAPPE_USER/
+#COPY .ssh /home/$FRAPPE_USER/
 #
 #### get app using SSH
 #RUN set -ex; \
