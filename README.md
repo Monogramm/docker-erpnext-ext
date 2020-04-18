@@ -96,9 +96,11 @@ Then, you have two choices to set your login password:
 
 -   Select the version closest to what you want in the images folder
     -   In the `docker-compose.yml`, you can comment the `build` lines, uncomment the `image` lines and edit versions to download prebuilt docker container.
+
 -   Feel free to edit variables defined in `.env` as you see fit.
 -   Run the docker-compose with `docker-compose up -d` and that's it.
 -   Now, go to <http://localhost:80> to access the first run installation wizard.
+
 
 ## Questions / Issues
 
