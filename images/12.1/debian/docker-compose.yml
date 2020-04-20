@@ -56,7 +56,7 @@ services:
       # Docker setup
       - DOCKER_DB_ALLOWED_HOSTS=172.%.%.%
       # Frappe setup
-      - FRAPPE_APP_INIT=erpnext erpnext_autoinstall erpnext_france mautic
+      - FRAPPE_APP_INIT=erpnext erpnext_autoinstall erpnext_france mautic erpnext_ocr
       - FRAPPE_APP_RESET=1
       - FRAPPE_DEFAULT_PROTOCOL=http://
       - FRAPPE_DEFAULT_SITE=${ERPNEXT_SITE}
@@ -92,8 +92,18 @@ services:
       - LDAP_ENABLED=${LDAP_ENABLED}
       - LDAP_SERVER_URL=${LDAP_SERVER_URL}
       - LDAP_BASE_DN=${LDAP_BASE_DN}
+      - LDAP_PASSWORD=${LDAP_PASSWORD}
       - LDAP_USERS_ORGANIZATIONAL_UNIT=${LDAP_USERS_ORGANIZATIONAL_UNIT}
-      - LDAP_SSL_TLS_MODE=${LDAP_SSL_TLS_MODE}
+      - LDAP_DEFAULT_ROLE=Employee
+      - LDAP_SEARCH_STRING=uid={0}
+      - LDAP_EMAIL_FIELD=mail
+      - LDAP_USERNAME_FIELD=uid
+      - LDAP_FIRST_NAME_FIELD=givenName
+      - LDAP_MIDDLE_NAME_FIELD=
+      - LDAP_LAST_NAME_FIELD=sn
+      - LDAP_PHONE_FIELD=telephoneNumber
+      - LDAP_MOBILE_FIELD=mobile
+      - LDAP_SSL_TLS_MODE=StartTLS
       ## Autoinstall - Email domain configuration
       #- EMAIL_DOMAIN_SERVER=${EMAIL_DOMAIN_SERVER}
       #- EMAIL_DOMAIN_ID=${EMAIL_DOMAIN_ID}

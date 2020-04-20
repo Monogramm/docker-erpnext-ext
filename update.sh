@@ -47,6 +47,12 @@ latestsAutoinstall=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/erpne
 	master
 )
 
+latestsOcr=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/erpnext_ocr/tags' |tac|tac| \
+	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
+	sort -urV )
+	master
+)
+
 # Remove existing images
 echo "reset docker images"
 rm -rf ./images/
@@ -59,6 +65,7 @@ for latest in "${latests[@]}"; do
 	major=$(echo "$latest" | cut -d. -f1-1)
 
 	latestAutoinstall=${latestsAutoinstall[0]}
+	latestOcr=${latestsOcr[0]}
 
 	# Only add versions >= "$min_version"
 	if version_greater_or_equal "$version" "$min_version"; then
@@ -116,6 +123,7 @@ for latest in "${latests[@]}"; do
 			# Update apps default version
 			sed -ri -e '
 				s/ERPNEXT_AUTOINSTALL_VERSION=.*/ERPNEXT_AUTOINSTALL_VERSION='"$latestAutoinstall"'/g;
+				s/ERPNEXT_OCR_VERSION=.*/ERPNEXT_OCR_VERSION='"$latestOcr"'/g;
 			' "$dir/Dockerfile"
 
 			# Update git login / password if retrieving any private apps
