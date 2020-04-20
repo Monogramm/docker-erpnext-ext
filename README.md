@@ -28,8 +28,6 @@ Possible additional apps:
 
 Check base image [Monogramm/docker-erpnext](https://github.com/Monogramm/docker-erpnext) and [Monogramm/docker-frappe](https://github.com/Monogramm/docker-frappe) for details.
 
-:construction: **This image is still in development!**
-
 ## What is ERPNext ?
 
 Open Source ERP built for the web.
