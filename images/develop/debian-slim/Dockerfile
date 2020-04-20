@@ -2,9 +2,49 @@ FROM monogramm/docker-erpnext:develop-debian-slim
 
 ### For public repository > Start ###
 
-ARG ERPNEXT_AUTOINSTALL_VERSION=1.1.0
+# Build environment variables
+
+ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
+
+ARG ERPNEXT_AUTOINSTALL_VERSION=1.2.0
+ARG ERPNEXT_OCR_VERSION=1.1.0
 
 RUN set -ex; \
+    sudo apt-get update -q; \
+    sudo apt-get install -y --no-install-recommends \
+        ghostscript \
+        imagemagick \
+        libmagickwand-dev \
+        tesseract-ocr \
+        libtesseract-dev \
+        libleptonica-dev \
+        pkg-config \
+    ; \
+    sudo rm -rf /var/lib/apt/lists/*; \
+    mkdir -p "$TESSDATA_PREFIX"; \
+    sudo chown -R "$FRAPPE_USER:$FRAPPE_USER" "$TESSDATA_PREFIX" ; \
+    curl -sS -o "$TESSDATA_PREFIX/eng.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/eng.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/equ.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/equ.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/osd.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/osd.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/fra.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/fra.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/deu.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/deu.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/spa.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/spa.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/por.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/por.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/ita.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/ita.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/nld.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/nld.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/ara.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/ara.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/tur.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/tur.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/rus.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/rus.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/jpn.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/jpn.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/vie.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/vie.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/kor.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/kor.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/chi_sim.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/chi_sim.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/chi_tra.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/chi_tra.traineddata; \
+    sudo chmod -R 755 "$TESSDATA_PREFIX" ; \
+    sudo sed -i \
+        -e 's/rights="none" pattern="PDF"/rights="read" pattern="PDF"/g' \
+        /etc/ImageMagick*/policy.xml \
+    ; \
     sudo mkdir -p "/home/$FRAPPE_USER"/frappe-bench/logs; \
     sudo touch "/home/$FRAPPE_USER"/frappe-bench/logs/bench.log; \
     sudo chmod 777 \
@@ -17,12 +57,14 @@ RUN set -ex; \
     ; \
     bench get-app --branch "${ERPNEXT_AUTOINSTALL_VERSION:-master}" https://github.com/Monogramm/erpnext_autoinstall; \
     bench get-app https://github.com/britlog/erpnext_france; \
-    bench get-app https://github.com/DOKOS-IO/mautic
+    bench get-app https://github.com/DOKOS-IO/mautic; \
+    bench get-app --branch "${ERPNEXT_OCR_VERSION:-master}" https://github.com/Monogramm/erpnext_ocr
 
 VOLUME \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_autoinstall/erpnext_autoinstall/public \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public \
-    /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public
+    /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public \
+    /home/$FRAPPE_USER/frappe-bench/apps/erpnext_ocr/erpnext_ocr/public
 
 ### For public repository > End ###
 
