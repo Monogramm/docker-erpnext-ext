@@ -9,6 +9,8 @@ ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
 ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.0
 ARG ERPNEXT_OCR_VERSION=1.1.0
 
+ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall erpnext_france mautic erpnext_ocr'
+
 RUN set -ex; \
     sudo apt-get update -q; \
     sudo apt-get install -y --no-install-recommends \
