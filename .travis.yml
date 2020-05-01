@@ -7,9 +7,7 @@ language: shell
 
 branches:
   only:
-    - develop
     - master
-    - develop
 
 before_script:
   - env | sort
@@ -89,9 +87,9 @@ matrix:
     - env: VERSION=12.0 VARIANT=alpine
     - env: VERSION=12.0 VARIANT=debian-slim
     - env: VERSION=12.0 VARIANT=debian
-    # FIXME https://github.com/frappe/frappe/issues/7737
-    #- env: VERSION=10.x VARIANT=alpine
-    #- env: VERSION=10.x VARIANT=debian-slim
+    # Stop supporting Frappe 10 and Python 2
+    - env: VERSION=10.x VARIANT=alpine
+    - env: VERSION=10.x VARIANT=debian-slim
     - env: VERSION=10.x VARIANT=debian
 
 env: # Environments
