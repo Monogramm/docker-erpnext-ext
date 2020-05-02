@@ -7,7 +7,10 @@ FROM monogramm/docker-erpnext:10-debian
 ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
 
 ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.0
-ARG ERPNEXT_OCR_VERSION=1.1.0
+ARG ERPNEXT_OCR_VERSION=1.1.1
+
+ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall mautic erpnext_ocr'
+# Add erpnext_france when fixed: https://github.com/britlog/erpnext_france/issues/4
 
 RUN set -ex; \
     sudo apt-get update -q; \
