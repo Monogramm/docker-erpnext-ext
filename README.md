@@ -31,7 +31,7 @@ Possible additional apps:
 
 Check base image [Monogramm/docker-erpnext](https://github.com/Monogramm/docker-erpnext) and [Monogramm/docker-frappe](https://github.com/Monogramm/docker-frappe) for details.
 
-## What is ERPNext ?
+## What is ERPNext
 
 Open Source ERP built for the web.
 
@@ -47,18 +47,18 @@ Open Source ERP built for the web.
     -   `develop-alpine` `develop`
     -   `develop-debian`
     -   `develop-debian-slim`
--   ERPNext 12.0
+-   ERPNext 13.0
+    -   `13-alpine` `13`
+    -   `13-debian`
+    -   `13-debian-slim`
+-   ERPNext 12.7
     -   `12-alpine` `12` `alpine` `latest`
     -   `12-debian` `debian`
     -   `12-debian-slim` `debian-slim`
--   ERPNext 11
+-   ERPNext 11.1
     -   `11-alpine` `11`
-    -   `11-debian` `debian`
-    -   `11-debian-slim` `debian-slim`
--   ERPNext 10 (branch 10.x.x for latest bug fixes)
-    -   `10-alpine` `10`
-    -   `10-debian`
-    -   `10-debian-slim`
+    -   `11-debian`
+    -   `11-debian-slim`
 
 ## How to run this image ?
 
@@ -85,8 +85,8 @@ In order to pass the login and password to git, first:
 -   `Dockerfile-***.template`: Uncomment the `For private repository: SSH` section
 
 Then, you have two choices to set your login password:
-1\. `hooks/build` (RECOMMENDED): DockerHub build hook to retrieve Git Login and Password environment and pass them. You do not store the login/password in git, but simply set environment variables in DockerHub.
-2\. `update.sh`: Update the `git_login` and `git_password` to store password in Dockerfile. This is not the best practice to put password in a git repository so please be super careful with your code and make sure to keep your reposiroty private.
+1. `hooks/build` (RECOMMENDED): DockerHub build hook to retrieve Git Login and Password environment and pass them. You do not store the login/password in git, but simply set environment variables in DockerHub.
+2. `update.sh`: Update the `git_login` and `git_password` to store password in Dockerfile. This is not the best practice to put password in a git repository so please be super careful with your code and make sure to keep your reposiroty private.
 
 #### SSH
 
@@ -107,7 +107,6 @@ Then, you have two choices to set your login password:
 ## Questions / Issues
 
 If you got any questions or problems using the image, please visit our [Github Repository](https://github.com/Monogramm/docker-erpnext-ext) and write an issue.
-
 
 [uri_license]: http://www.gnu.org/licenses/agpl.html
 

@@ -72,25 +72,34 @@ matrix:
     - env: VERSION=develop VARIANT=alpine
     - env: VERSION=develop VARIANT=debian-slim
     - env: VERSION=develop VARIANT=debian
-    - env: VERSION=13.0 VARIANT=alpine
-    - env: VERSION=13.0 VARIANT=debian-slim
-    - env: VERSION=13.0 VARIANT=debian
-    - env: VERSION=12.3 VARIANT=alpine
-    - env: VERSION=12.3 VARIANT=debian-slim
-    - env: VERSION=12.3 VARIANT=debian
-    - env: VERSION=12.2 VARIANT=alpine
-    - env: VERSION=12.2 VARIANT=debian-slim
-    - env: VERSION=12.2 VARIANT=debian
-    - env: VERSION=12.1 VARIANT=alpine
-    - env: VERSION=12.1 VARIANT=debian-slim
-    - env: VERSION=12.1 VARIANT=debian
-    - env: VERSION=12.0 VARIANT=alpine
-    - env: VERSION=12.0 VARIANT=debian-slim
-    - env: VERSION=12.0 VARIANT=debian
     # Stop supporting Frappe 10 and Python 2
     - env: VERSION=10.x VARIANT=alpine
     - env: VERSION=10.x VARIANT=debian-slim
     - env: VERSION=10.x VARIANT=debian
+    - env: VERSION=12.0 VARIANT=alpine
+    - env: VERSION=12.0 VARIANT=debian-slim
+    - env: VERSION=12.0 VARIANT=debian
+    - env: VERSION=12.1 VARIANT=alpine
+    - env: VERSION=12.1 VARIANT=debian-slim
+    - env: VERSION=12.1 VARIANT=debian
+    - env: VERSION=12.2 VARIANT=alpine
+    - env: VERSION=12.2 VARIANT=debian-slim
+    - env: VERSION=12.2 VARIANT=debian
+    - env: VERSION=12.3 VARIANT=alpine
+    - env: VERSION=12.3 VARIANT=debian-slim
+    - env: VERSION=12.3 VARIANT=debian
+    - env: VERSION=12.4 VARIANT=alpine
+    - env: VERSION=12.4 VARIANT=debian-slim
+    - env: VERSION=12.4 VARIANT=debian
+    - env: VERSION=12.5 VARIANT=alpine
+    - env: VERSION=12.5 VARIANT=debian-slim
+    - env: VERSION=12.5 VARIANT=debian
+    - env: VERSION=12.6 VARIANT=alpine
+    - env: VERSION=12.6 VARIANT=debian-slim
+    - env: VERSION=12.6 VARIANT=debian
+    - env: VERSION=13.0 VARIANT=alpine
+    - env: VERSION=13.0 VARIANT=debian-slim
+    - env: VERSION=13.0 VARIANT=debian
 
 env: # Environments
   - VERSION=develop VARIANT=alpine
