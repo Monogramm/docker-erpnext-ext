@@ -17,10 +17,13 @@ This image was inspired by several other containers developed by the community:
 
 Additional apps:
 
--   <https://github.com/britlog/erpnext_france>
 -   <https://github.com/DOKOS-IO/mautic>
 -   <https://github.com/Monogramm/erpnext_autoinstall>
 -   <https://github.com/Monogramm/erpnext_ocr>
+
+(Temporarily?) removed apps:
+
+-   <https://github.com/britlog/erpnext_france> due to issue britlog/erpnext_france#4
 
 Possible additional apps:
 
