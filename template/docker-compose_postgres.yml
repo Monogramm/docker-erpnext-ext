@@ -54,7 +54,8 @@ services:
       - erpnext_db
     environment:
       # Frappe setup
-      - FRAPPE_APP_INIT=erpnext erpnext_autoinstall erpnext_france mautic erpnext_ocr
+      - FRAPPE_APP_INIT=erpnext erpnext_autoinstall mautic erpnext_ocr
+      #- FRAPPE_APP_INIT=erpnext erpnext_autoinstall erpnext_france mautic erpnext_ocr
       - FRAPPE_APP_RESET=1
       - FRAPPE_DEFAULT_PROTOCOL=http://
       - FRAPPE_DEFAULT_SITE=${ERPNEXT_SITE}

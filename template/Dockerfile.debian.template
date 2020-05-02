@@ -9,7 +9,7 @@ ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
 ARG ERPNEXT_AUTOINSTALL_VERSION=
 ARG ERPNEXT_OCR_VERSION=
 
-ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall erpnext_france mautic erpnext_ocr'
+ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall mautic erpnext_ocr'
 
 RUN set -ex; \
     sudo apt-get update -q; \
