@@ -9,7 +9,7 @@ ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
 ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.0
 ARG ERPNEXT_OCR_VERSION=1.1.1
 
-ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall mautic erpnext_ocr'
+ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall erpnext_ocr'
 # Add erpnext_france when fixed: https://github.com/britlog/erpnext_france/issues/4
 
 RUN set -ex; \
@@ -59,8 +59,6 @@ RUN set -ex; \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
     bench get-app --branch "${ERPNEXT_AUTOINSTALL_VERSION:-master}" https://github.com/Monogramm/erpnext_autoinstall; \
-    bench get-app https://github.com/britlog/erpnext_france; \
-    bench get-app https://github.com/DOKOS-IO/mautic; \
     bench get-app --branch "${ERPNEXT_OCR_VERSION:-master}" https://github.com/Monogramm/erpnext_ocr
 
 VOLUME \

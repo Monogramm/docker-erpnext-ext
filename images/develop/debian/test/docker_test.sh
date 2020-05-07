@@ -43,6 +43,13 @@ bench doctor
 echo "Checking apps installed..."
 bench list-apps
 
+for app in frappe erpnext erpnext_autoinstall erpnext_ocr; do
+    if ! bench list-apps | grep "$app"; then
+        echo "$app is not installed!"
+        exit 16
+    fi
+done
+
 ################################################################################
 # Success
 echo 'Docker tests successful'

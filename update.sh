@@ -76,7 +76,7 @@ for latest in "${latests[@]}"; do
 			if [ -d "$dir" ]; then
 				continue
 			fi
-			echo "generating frappe $latest [$version] ($variant)"
+			echo "generating erpnext-ext $latest [$version] ($variant)"
 			mkdir -p "$dir"
 
 			# Copy the docker files

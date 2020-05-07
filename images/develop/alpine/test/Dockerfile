@@ -1,4 +1,4 @@
-FROM monogramm/docker-frappe:develop-alpine
+FROM monogramm/docker-frappe:develop
 
 COPY docker_test.sh /docker_test.sh
 
