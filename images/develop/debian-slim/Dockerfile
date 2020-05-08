@@ -4,7 +4,8 @@ FROM monogramm/docker-erpnext:develop-debian-slim
 
 # Build environment variables
 
-ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
+ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata \
+    LC_ALL=C
 
 ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.0
 ARG ERPNEXT_OCR_VERSION=1.1.1

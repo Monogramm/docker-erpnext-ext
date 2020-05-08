@@ -4,7 +4,9 @@ FROM monogramm/docker-erpnext:develop-alpine
 
 # Build environment variables
 
-ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
+ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata \
+    LANG=C.UTF-8 \
+    LC_ALL=C
 
 ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.0
 ARG ERPNEXT_OCR_VERSION=1.1.1

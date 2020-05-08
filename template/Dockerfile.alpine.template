@@ -4,7 +4,9 @@ FROM monogramm/docker-erpnext:%%ERPNEXT_VERSION%%-%%VARIANT%%
 
 # Build environment variables
 
-ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata
+ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata \
+    LANG=C.UTF-8 \
+    LC_ALL=C
 
 ARG ERPNEXT_AUTOINSTALL_VERSION=
 ARG ERPNEXT_OCR_VERSION=
