@@ -57,7 +57,7 @@ services:
       - DOCKER_DB_ALLOWED_HOSTS=172.%.%.%
       - DOCKER_GUNICORN_TIMEOUT=600
       # Frappe setup
-      - FRAPPE_APP_INIT=erpnext erpnext_autoinstall mautic erpnext_ocr
+      - FRAPPE_APP_INIT=erpnext erpnext_autoinstall erpnext_ocr
       # Add erpnext_france when fixed: https://github.com/britlog/erpnext_france/issues/4
       #- FRAPPE_APP_INIT=erpnext erpnext_autoinstall erpnext_france mautic erpnext_ocr
       - FRAPPE_APP_RESET=1

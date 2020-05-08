@@ -11,6 +11,7 @@ ARG ERPNEXT_OCR_VERSION=1.1.1
 
 ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall erpnext_ocr'
 # Add erpnext_france when fixed: https://github.com/britlog/erpnext_france/issues/4
+# Add mautic when answered: https://github.com/dokos-io/mautic/issues/3
 
 RUN set -ex; \
     sudo apt-get update -q; \
