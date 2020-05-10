@@ -14,6 +14,7 @@ before_script:
   - dir="images/${VERSION}/${VARIANT}"
   - export DOCKER_TAG="${VERSION}-${VARIANT}-travis"
   - export IMAGE_NAME="docker-erpnext-ext:${DOCKER_TAG}"
+  - export IMAGE_ALIAS_NAME="docker-erpnext-ext:${VERSION}"
 
 script:
   - cd "$dir"
