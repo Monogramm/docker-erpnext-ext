@@ -72,11 +72,11 @@ for latest in "${latests[@]}"; do
 
 		for variant in "${variants[@]}"; do
 			# Create the version+variant directory with a Dockerfile.
-			dir="images/$version/$variant"
+			dir="images/$major/$variant"
 			if [ -d "$dir" ]; then
 				continue
 			fi
-			echo "generating erpnext-ext $latest [$version] ($variant)"
+			echo "generating erpnext-ext $latest [$major] ($variant)"
 			mkdir -p "$dir"
 
 			# Copy the docker files
@@ -132,10 +132,10 @@ for latest in "${latests[@]}"; do
 				s/%%GIT_PASSWORD%%/'"$git_password"'/g;
 			' "$dir/Dockerfile"
 
-			travisEnv='\n  - VERSION='"$version"' VARIANT='"$variant$travisEnv"
+			travisEnv='\n  - VERSION='"$major"' VARIANT='"$variant$travisEnv"
 
 			if [[ $1 == 'build' ]]; then
-				tag="$version-$variant"
+				tag="$major-$variant"
 				echo "Build Dockerfile for ${tag}"
 				docker build -t "${dockerRepo}:${tag}" "$dir"
 			fi
