@@ -9,19 +9,27 @@ branches:
   only:
     - master
 
-before_script:
+before_install:
   - env | sort
-  - dir="images/${VERSION}/${VARIANT}"
+  - export home=$(pwd)
+  - export image_dir="${home}/images/${VERSION}/${VARIANT}"
   - export DOCKER_TAG="${VERSION}-${VARIANT}-travis"
   - export IMAGE_NAME="docker-erpnext-ext:${DOCKER_TAG}"
   - export IMAGE_ALIAS_NAME="docker-erpnext-ext:${VERSION}"
 
-script:
-  - cd "$dir"
+install:
+  - echo "Changing to image directory ($image_dir)"
+  - cd "$image_dir"
   # Test container build
   - travis_retry travis_wait 80 docker build --build-arg TAG=${DOCKER_TAG} --build-arg VCS_REF=${TRAVIS_COMMIT} --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` -t ${IMAGE_NAME} -t ${IMAGE_ALIAS_NAME} .
   #- travis_retry travis_wait 80 docker-compose -f "docker-compose.${DATABASE}.yml" build
+
+before_script:
   - docker images
+
+script:
+  - echo "Changing to image directory ($image_dir)"
+  - cd "$image_dir"
   # Test container run
   - travis_retry docker-compose -f "docker-compose.${DATABASE}.yml" up -d && sleep 60
   - docker-compose -f "docker-compose.${DATABASE}.yml" ps
