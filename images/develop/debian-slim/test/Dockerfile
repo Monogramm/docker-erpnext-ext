@@ -1,4 +1,4 @@
-FROM monogramm/docker-frappe:develop
+FROM monogramm/docker-erpnext-ext:develop
 
 COPY docker_test.sh /docker_test.sh
 
