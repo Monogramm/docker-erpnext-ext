@@ -7,12 +7,6 @@ declare -A base=(
 	[alpine]='alpine'
 )
 
-declare -A compose=(
-	[debian]='mariadb'
-	[debian-slim]='mariadb'
-	[alpine]='postgres'
-)
-
 variants=(
 	debian
 	debian-slim
@@ -72,11 +66,11 @@ for latest in "${latests[@]}"; do
 
 		for variant in "${variants[@]}"; do
 			# Create the version+variant directory with a Dockerfile.
-			dir="images/$version/$variant"
+			dir="images/$major/$variant"
 			if [ -d "$dir" ]; then
 				continue
 			fi
-			echo "generating frappe $latest [$version] ($variant)"
+			echo "generating erpnext-ext $latest [$major] ($variant)"
 			mkdir -p "$dir"
 
 			# Copy the docker files
@@ -88,9 +82,10 @@ for latest in "${latests[@]}"; do
 				"$dir/$name"
 			done
 
+			cp "template/docker-compose_mariadb.yml" "$dir/docker-compose.mariadb.yml"
 			case $latest in
-				10.*|11.*) cp "template/docker-compose_mariadb.yml" "$dir/docker-compose.yml";;
-				*) cp "template/docker-compose_${compose[$variant]}.yml" "$dir/docker-compose.yml";;
+				10.*|11.*) echo "Postgres not supported for $latest";;
+				*) cp "template/docker-compose_postgres.yml" "$dir/docker-compose.postgres.yml";;
 			esac
 
 			template="template/Dockerfile.${base[$variant]}.template"
@@ -106,18 +101,18 @@ for latest in "${latests[@]}"; do
 				sed -ri -e '
 					s/%%VARIANT%%/'"$variant"'/g;
 					s/%%ERPNEXT_VERSION%%/'"$latest"'/g;
-				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose.yml"
+				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose."*.yml
 			elif [ "$latest" = "10.x.x" ]; then
 				# FIXME https://github.com/frappe/frappe/issues/7737
 				sed -ri -e '
 					s/%%VARIANT%%/'"$variant"'/g;
 					s/%%ERPNEXT_VERSION%%/10/g;
-				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose.yml"
+				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose."*.yml
 			else
 				sed -ri -e '
 					s/%%VARIANT%%/'"$variant"'/g;
 					s/%%ERPNEXT_VERSION%%/'"$major"'/g;
-				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose.yml"
+				' "$dir/Dockerfile" "$dir/test/Dockerfile" "$dir/docker-compose."*.yml
 			fi
 
 			# Update apps default version
@@ -132,10 +127,14 @@ for latest in "${latests[@]}"; do
 				s/%%GIT_PASSWORD%%/'"$git_password"'/g;
 			' "$dir/Dockerfile"
 
-			travisEnv='\n  - VERSION='"$version"' VARIANT='"$variant$travisEnv"
+			travisEnv='\n  - VERSION='"$major"' VARIANT='"$variant"' DATABASE=mariadb'"$travisEnv"
+			case $latest in
+				10.*|11.*) echo "Postgres not supported for $latest";;
+				*) travisEnv='\n  - VERSION='"$major"' VARIANT='"$variant"' DATABASE=postgres'"$travisEnv";;
+			esac
 
 			if [[ $1 == 'build' ]]; then
-				tag="$version-$variant"
+				tag="$major-$variant"
 				echo "Build Dockerfile for ${tag}"
 				docker build -t "${dockerRepo}:${tag}" "$dir"
 			fi

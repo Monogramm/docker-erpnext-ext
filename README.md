@@ -17,13 +17,10 @@ This image was inspired by several other containers developed by the community:
 
 Additional apps:
 
--   <https://github.com/DOKOS-IO/mautic>
 -   <https://github.com/Monogramm/erpnext_autoinstall>
 -   <https://github.com/Monogramm/erpnext_ocr>
-
-(Temporarily?) removed apps:
-
--   <https://github.com/britlog/erpnext_france> due to issue britlog/erpnext_france#4
+-   <https://github.com/britlog/erpnext_france>
+-   <https://github.com/DOKOS-IO/mautic> (might be removed depending on dokos-io/mautic#3)
 
 Possible additional apps:
 
@@ -47,15 +44,18 @@ Open Source ERP built for the web.
     -   `develop-alpine` `develop`
     -   `develop-debian`
     -   `develop-debian-slim`
--   ERPNext 13.0
+
+-   ERPNext 13
     -   `13-alpine` `13`
     -   `13-debian`
     -   `13-debian-slim`
--   ERPNext 12.7
+
+-   ERPNext 12
     -   `12-alpine` `12` `alpine` `latest`
     -   `12-debian` `debian`
     -   `12-debian-slim` `debian-slim`
--   ERPNext 11.1
+
+-   ERPNext 11
     -   `11-alpine` `11`
     -   `11-debian`
     -   `11-debian-slim`
