@@ -6,9 +6,10 @@ FROM monogramm/docker-erpnext:develop-debian
 
 ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata \
     LC_ALL=C
-
+ 
 ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.0
-ARG ERPNEXT_OCR_VERSION=1.1.1
+ARG ERPNEXT_OCR_VERSION=1.0.0
+ARG RECOD_ERPNEXT_DESIGN=master
 
 ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall erpnext_ocr erpnext_france mautic'
 # XXX ERPNext France supported for v12+?
@@ -62,6 +63,7 @@ RUN set -ex; \
     ; \
     bench get-app --branch "${ERPNEXT_AUTOINSTALL_VERSION:-master}" https://github.com/Monogramm/erpnext_autoinstall; \
     bench get-app --branch "${ERPNEXT_OCR_VERSION:-master}" https://github.com/Monogramm/erpnext_ocr; \
+    bench get-app --branch "${RECOD_ERPNEXT_DESIGN:-master}" https://github.com/Monogramm/recod_erpnext_design; \
     bench get-app https://github.com/britlog/erpnext_france; \
     bench get-app https://github.com/dokos-io/mautic
 

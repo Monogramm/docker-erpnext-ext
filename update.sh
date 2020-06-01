@@ -47,6 +47,12 @@ latestsOcr=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/erpnext_ocr/t
 	master
 )
 
+latestsRecodDesign=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/recod_erpnext_design/tags' |tac|tac| \
+	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
+	sort -urV )
+	master
+)
+
 # Remove existing images
 echo "reset docker images"
 rm -rf ./images/
@@ -60,6 +66,7 @@ for latest in "${latests[@]}"; do
 
 	latestAutoinstall=${latestsAutoinstall[0]}
 	latestOcr=${latestsOcr[0]}
+	latestRecodDesign=${latestsRecodDesign[0]}
 
 	# Only add versions >= "$min_version"
 	if version_greater_or_equal "$version" "$min_version"; then
@@ -119,6 +126,7 @@ for latest in "${latests[@]}"; do
 			sed -ri -e '
 				s/ERPNEXT_AUTOINSTALL_VERSION=.*/ERPNEXT_AUTOINSTALL_VERSION='"$latestAutoinstall"'/g;
 				s/ERPNEXT_OCR_VERSION=.*/ERPNEXT_OCR_VERSION='"$latestOcr"'/g;
+				s/ERPNEXT_OCR_VERSION=.*/ERPNEXT_OCR_VERSION='"$latestRecodDesign"'/g;
 			' "$dir/Dockerfile"
 
 			# Update git login / password if retrieving any private apps
