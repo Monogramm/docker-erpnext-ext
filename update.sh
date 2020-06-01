@@ -126,7 +126,7 @@ for latest in "${latests[@]}"; do
 			sed -ri -e '
 				s/ERPNEXT_AUTOINSTALL_VERSION=.*/ERPNEXT_AUTOINSTALL_VERSION='"$latestAutoinstall"'/g;
 				s/ERPNEXT_OCR_VERSION=.*/ERPNEXT_OCR_VERSION='"$latestOcr"'/g;
-				s/ERPNEXT_OCR_VERSION=.*/ERPNEXT_OCR_VERSION='"$latestRecodDesign"'/g;
+				s/RECOD_ERPNEXT_DESIGN=.*/RECOD_ERPNEXT_DESIGN='"$latestRecodDesign"'/g;
 			' "$dir/Dockerfile"
 
 			# Update git login / password if retrieving any private apps
