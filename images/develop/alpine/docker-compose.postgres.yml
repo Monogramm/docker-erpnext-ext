@@ -56,7 +56,7 @@ services:
       # Docker setup
       - DOCKER_GUNICORN_TIMEOUT=600
       # Frappe setup
-      - FRAPPE_APP_INIT=erpnext erpnext_autoinstall erpnext_ocr erpnext_france mautic
+      - FRAPPE_APP_INIT=erpnext erpnext_autoinstall erpnext_ocr recod_erpnext_design erpnext_france mautic
       - FRAPPE_APP_RESET=1
       - FRAPPE_DEFAULT_PROTOCOL=http://
       - FRAPPE_DEFAULT_SITE=${ERPNEXT_SITE}
