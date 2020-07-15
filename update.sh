@@ -53,6 +53,12 @@ latestsRecodDesign=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/recod
 	master
 )
 
+latestsFrappePwa=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/frappe_pwa/tags' |tac|tac| \
+	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
+	sort -urV )
+	master
+)
+
 # Remove existing images
 echo "reset docker images"
 rm -rf ./images/
@@ -67,6 +73,7 @@ for latest in "${latests[@]}"; do
 	latestAutoinstall=${latestsAutoinstall[0]}
 	latestOcr=${latestsOcr[0]}
 	latestRecodDesign=${latestsRecodDesign[0]}
+	latestFrappePwa=${latestsFrappePwa[0]}
 
 	# Only add versions >= "$min_version"
 	if version_greater_or_equal "$version" "$min_version"; then
@@ -127,6 +134,7 @@ for latest in "${latests[@]}"; do
 				s/ERPNEXT_AUTOINSTALL_VERSION=.*/ERPNEXT_AUTOINSTALL_VERSION='"$latestAutoinstall"'/g;
 				s/ERPNEXT_OCR_VERSION=.*/ERPNEXT_OCR_VERSION='"$latestOcr"'/g;
 				s/RECOD_ERPNEXT_DESIGN=.*/RECOD_ERPNEXT_DESIGN='"$latestRecodDesign"'/g;
+				s/FRAPPE_PWA=.*/FRAPPE_PWA='"$latestFrappePwa"'/g;
 			' "$dir/Dockerfile"
 
 			# Update git login / password if retrieving any private apps
