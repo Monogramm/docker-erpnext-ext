@@ -7,9 +7,10 @@ FROM monogramm/docker-erpnext:12-debian-slim
 ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata \
     LC_ALL=C
  
-ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.0
+ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.1
 ARG ERPNEXT_OCR_VERSION=1.1.1
-ARG RECOD_ERPNEXT_DESIGN=1.0.0
+ARG RECOD_ERPNEXT_DESIGN=1.1.0
+ARG FRAPPE_PWA=0.9.0
 
 ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall erpnext_ocr erpnext_france mautic'
 # XXX ERPNext France supported for v12+?
@@ -64,6 +65,7 @@ RUN set -ex; \
     bench get-app --branch "${ERPNEXT_AUTOINSTALL_VERSION:-master}" https://github.com/Monogramm/erpnext_autoinstall; \
     bench get-app --branch "${ERPNEXT_OCR_VERSION:-master}" https://github.com/Monogramm/erpnext_ocr; \
     bench get-app --branch "${RECOD_ERPNEXT_DESIGN:-master}" https://github.com/Monogramm/recod_erpnext_design; \
+    bench get-app --branch "${FRAPPE_PWA:-master}" https://github.com/Monogramm/frappe_pwa; \
     bench get-app https://github.com/britlog/erpnext_france; \
     bench get-app https://github.com/dokos-io/mautic
 
@@ -71,6 +73,7 @@ VOLUME \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_autoinstall/erpnext_autoinstall/public \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_ocr/erpnext_ocr/public \
     /home/$FRAPPE_USER/frappe-bench/apps/recod_erpnext_design/recod_erpnext_design/public \
+    /home/$FRAPPE_USER/frappe-bench/apps/frappe_pwa/frappe_pwa/public \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_france/erpnext_france/public \
     /home/$FRAPPE_USER/frappe-bench/apps/mautic/mautic/public
 
