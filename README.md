@@ -19,7 +19,9 @@ Additional apps:
 
 -   <https://github.com/Monogramm/erpnext_autoinstall>
 -   <https://github.com/Monogramm/erpnext_ocr>
+-   <https://github.com/Monogramm/recod_frappe_devtools>
 -   <https://github.com/Monogramm/recod_erpnext_design>
+-   <https://github.com/Monogramm/frappe_pwa>
 -   <https://github.com/britlog/erpnext_france>
 -   <https://github.com/DOKOS-IO/mautic> (might be removed depending on dokos-io/mautic#3)
 
