@@ -8,8 +8,9 @@ ENV TESSDATA_PREFIX=/home/$FRAPPE_USER/tessdata \
     LC_ALL=C
  
 ARG ERPNEXT_AUTOINSTALL_VERSION=1.3.1
+ARG RECOD_FRAPPE_DEVTOOLS=0.9.0
 ARG ERPNEXT_OCR_VERSION=1.1.1
-ARG RECOD_ERPNEXT_DESIGN=1.1.0
+ARG RECOD_ERPNEXT_DESIGN=1.2.0
 ARG FRAPPE_PWA=0.9.0
 
 ENV FRAPPE_APP_PROTECTED='frappe erpnext erpnext_autoinstall erpnext_ocr erpnext_france mautic'
@@ -62,12 +63,13 @@ RUN set -ex; \
         "/home/$FRAPPE_USER"/frappe-bench/logs \
         "/home/$FRAPPE_USER"/frappe-bench/logs/* \
     ; \
-    bench get-app --branch "${ERPNEXT_AUTOINSTALL_VERSION:-master}" https://github.com/Monogramm/erpnext_autoinstall; \
-    bench get-app --branch "${ERPNEXT_OCR_VERSION:-master}" https://github.com/Monogramm/erpnext_ocr; \
-    bench get-app --branch "${RECOD_ERPNEXT_DESIGN:-master}" https://github.com/Monogramm/recod_erpnext_design; \
-    bench get-app --branch "${FRAPPE_PWA:-master}" https://github.com/Monogramm/frappe_pwa; \
-    bench get-app https://github.com/britlog/erpnext_france; \
-    bench get-app https://github.com/dokos-io/mautic
+    bench get-app --branch "${ERPNEXT_AUTOINSTALL_VERSION:-master}" 'https://github.com/Monogramm/erpnext_autoinstall'; \
+    bench get-app --branch "${RECOD_FRAPPE_DEVTOOLS:-master}" 'https://github.com/Monogramm/recod_frappe_devtools'; \
+    bench get-app --branch "${ERPNEXT_OCR_VERSION:-master}" 'https://github.com/Monogramm/erpnext_ocr'; \
+    bench get-app --branch "${RECOD_ERPNEXT_DESIGN:-master}" 'https://github.com/Monogramm/recod_erpnext_design'; \
+    bench get-app --branch "${FRAPPE_PWA:-master}" 'https://github.com/Monogramm/frappe_pwa'; \
+    bench get-app 'https://github.com/britlog/erpnext_france'; \
+    bench get-app 'https://github.com/dokos-io/mautic'
 
 VOLUME \
     /home/$FRAPPE_USER/frappe-bench/apps/erpnext_autoinstall/erpnext_autoinstall/public \

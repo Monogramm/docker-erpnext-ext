@@ -41,6 +41,12 @@ latestsAutoinstall=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/erpne
 	master
 )
 
+latestsRecodDevTools=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/recod_frappe_devtools/tags' |tac|tac| \
+	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
+	sort -urV )
+	master
+)
+
 latestsOcr=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/erpnext_ocr/tags' |tac|tac| \
 	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
 	sort -urV )
@@ -71,6 +77,7 @@ for latest in "${latests[@]}"; do
 	major=$(echo "$latest" | cut -d. -f1-1)
 
 	latestAutoinstall=${latestsAutoinstall[0]}
+	latestRecodDevTools=${latestsRecodDevTools[0]}
 	latestOcr=${latestsOcr[0]}
 	latestRecodDesign=${latestsRecodDesign[0]}
 	latestFrappePwa=${latestsFrappePwa[0]}
@@ -132,6 +139,7 @@ for latest in "${latests[@]}"; do
 			# Update apps default version
 			sed -ri -e '
 				s/ERPNEXT_AUTOINSTALL_VERSION=.*/ERPNEXT_AUTOINSTALL_VERSION='"$latestAutoinstall"'/g;
+				s/RECOD_FRAPPE_DEVTOOLS=.*/RECOD_FRAPPE_DEVTOOLS='"$latestRecodDevTools"'/g;
 				s/ERPNEXT_OCR_VERSION=.*/ERPNEXT_OCR_VERSION='"$latestOcr"'/g;
 				s/RECOD_ERPNEXT_DESIGN=.*/RECOD_ERPNEXT_DESIGN='"$latestRecodDesign"'/g;
 				s/FRAPPE_PWA=.*/FRAPPE_PWA='"$latestFrappePwa"'/g;
