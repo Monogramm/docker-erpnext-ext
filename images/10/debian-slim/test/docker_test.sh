@@ -44,7 +44,7 @@ echo "Checking apps installed..."
 bench list-apps
 BENCH_LIST_APPS=$(bench list-apps)
 
-for app in erpnext_autoinstall erpnext_ocr recod_erpnext_design erpnext_france mautic; do
+for app in erpnext erpnext_autoinstall erpnext_ocr recod_erpnext_design frappe_pwa erpnext_france mautic; do
     if ! echo "$BENCH_LIST_APPS" | grep "$app"; then
         echo "$app is not installed!"
         exit 16

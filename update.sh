@@ -151,6 +151,14 @@ for latest in "${latests[@]}"; do
 				s/%%GIT_PASSWORD%%/'"$git_password"'/g;
 			' "$dir/Dockerfile"
 
+			# Create a list of "alias" tags for DockerHub post_push
+			if [ "$latest" = 'develop' ]; then
+				echo "develop-$variant " > "$dir/.dockertags"
+			else
+				echo "$latest-$variant $version-$variant $major-$variant " > "$dir/.dockertags"
+			fi
+
+			# Add Travis-CI env var
 			travisEnv='\n  - VERSION='"$major"' VARIANT='"$variant"' DATABASE=mariadb'"$travisEnv"
 			case $latest in
 				10.*|11.*) echo "Postgres not supported for $latest";;
