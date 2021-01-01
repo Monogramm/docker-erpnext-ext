@@ -155,7 +155,7 @@ for latest in "${latests[@]}"; do
 			if [ "$latest" = 'develop' ]; then
 				echo "develop-$variant " > "$dir/.dockertags"
 			else
-				echo "$latest-$variant $version-$variant $major-$variant " > "$dir/.dockertags"
+				echo "$version-$variant $major-$variant " > "$dir/.dockertags"
 			fi
 
 			# Add Travis-CI env var
