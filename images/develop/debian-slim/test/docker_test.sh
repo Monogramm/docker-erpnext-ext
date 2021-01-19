@@ -181,6 +181,6 @@ bench run-ui-tests --help
 
 ################################################################################
 # Success
-echo 'Frappe app '${FRAPPE_APP_TO_TEST}' tests finished'
+echo "Frappe app '${FRAPPE_APP_TO_TEST}' tests finished"
 echo 'Check the CI reports and logs for details.'
 exit 0
