@@ -25,6 +25,8 @@ function version_greater_or_equal() {
 }
 
 min_version=10
+dockerLatest=12
+dockerDefaultVariant='alpine'
 
 dockerRepo="monogramm/docker-erpnext-ext"
 latests=( $( curl -fsSL 'https://api.github.com/repos/frappe/erpnext/tags' |tac|tac| \
@@ -68,9 +70,10 @@ latestsFrappePwa=( $( curl -fsSL 'https://api.github.com/repos/Monogramm/frappe_
 # Remove existing images
 echo "reset docker images"
 rm -rf ./images/
-mkdir -p ./images
+mkdir ./images/
 
 echo "update docker images"
+readmeTags=
 travisEnv=
 for latest in "${latests[@]}"; do
 	version=$(echo "$latest" | cut -d. -f1-2)
@@ -151,12 +154,35 @@ for latest in "${latests[@]}"; do
 				s/%%GIT_PASSWORD%%/'"$git_password"'/g;
 			' "$dir/Dockerfile"
 
+			sed -ri -e '
+				s|DOCKER_TAG=.*|DOCKER_TAG='"$version"'|g;
+				s|DOCKER_REPO=.*|DOCKER_REPO='"$dockerRepo"'|g;
+				' "$dir/hooks/run"
+
 			# Create a list of "alias" tags for DockerHub post_push
-			if [ "$latest" = 'develop' ]; then
-				echo "develop-$variant " > "$dir/.dockertags"
+			if [ "$version" = "$dockerLatest" ]; then
+				if [ "$variant" = "$dockerDefaultVariant" ]; then
+					export DOCKER_TAGS="$latest-$variant $version-$variant $major-$variant $variant $latest $version $major latest "
+				else
+					export DOCKER_TAGS="$latest-$variant $version-$variant $major-$variant $variant "
+				fi
+			elif [ "$version" = "$latest" ]; then
+				if [ "$variant" = "$dockerDefaultVariant" ]; then
+					export DOCKER_TAGS="$latest-$variant $latest "
+				else
+					export DOCKER_TAGS="$latest-$variant "
+				fi
 			else
-				echo "$version-$variant $major-$variant " > "$dir/.dockertags"
+				if [ "$variant" = "$dockerDefaultVariant" ]; then
+					export DOCKER_TAGS="$latest-$variant $version-$variant $major-$variant $latest $version $major "
+				else
+					export DOCKER_TAGS="$latest-$variant $version-$variant $major-$variant "
+				fi
 			fi
+			echo "${DOCKER_TAGS} " > "$dir/.dockertags"
+
+			# Add README tags
+			readmeTags="$readmeTags\n-   ${DOCKER_TAGS} (\`$dir/Dockerfile\`)"
 
 			# Add Travis-CI env var
 			travisEnv='\n  - VERSION='"$major"' VARIANT='"$variant"' DATABASE=mariadb'"$travisEnv"
@@ -175,6 +201,11 @@ for latest in "${latests[@]}"; do
 	fi
 
 done
+
+# update README.md
+sed '/^<!-- >Docker Tags -->/,/^<!-- <Docker Tags -->/{/^<!-- >Docker Tags -->/!{/^<!-- <Docker Tags -->/!d}}' README.md > README.md.tmp
+sed -e "s|<!-- >Docker Tags -->|<!-- >Docker Tags -->\n$readmeTags\n|g" README.md.tmp > README.md
+rm README.md.tmp
 
 # update .travis.yml
 travis="$(awk -v 'RS=\n\n' '$1 == "env:" && $2 == "#" && $3 == "Environments" { $0 = "env: # Environments'"$travisEnv"'" } { printf "%s%s", $0, RS }' .travis.yml)"

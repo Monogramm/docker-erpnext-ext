@@ -33,23 +33,23 @@ RUN set -ex; \
     sudo rm -rf /var/cache/apk/*; \
     mkdir -p "$TESSDATA_PREFIX"; \
     sudo chown -R "$FRAPPE_USER:$FRAPPE_USER" "$TESSDATA_PREFIX" ; \
-    curl -sS -o "$TESSDATA_PREFIX/eng.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/eng.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/equ.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/equ.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/osd.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/osd.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/fra.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/fra.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/deu.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/deu.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/spa.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/spa.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/por.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/por.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/ita.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/ita.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/nld.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/nld.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/ara.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/ara.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/tur.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/tur.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/rus.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/rus.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/jpn.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/jpn.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/vie.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/vie.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/kor.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/kor.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/chi_sim.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/chi_sim.traineddata; \
-    curl -sS -o "$TESSDATA_PREFIX/chi_tra.traineddata" https://raw.github.com/tesseract-ocr/tessdata/master/chi_tra.traineddata; \
+    curl -sS -o "$TESSDATA_PREFIX/eng.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/eng.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/equ.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/equ.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/osd.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/osd.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/fra.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/fra.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/deu.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/deu.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/spa.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/spa.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/por.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/por.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/ita.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/ita.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/nld.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/nld.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/ara.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/ara.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/tur.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/tur.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/rus.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/rus.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/jpn.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/jpn.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/vie.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/vie.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/kor.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/kor.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/chi_sim.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/chi_sim.traineddata'; \
+    curl -sS -o "$TESSDATA_PREFIX/chi_tra.traineddata" 'https://raw.github.com/tesseract-ocr/tessdata/master/chi_tra.traineddata'; \
     sudo chmod -R 755 "$TESSDATA_PREFIX" ; \
     sudo sed -i \
         -e 's/rights="none" pattern="PDF"/rights="read" pattern="PDF"/g' \
