@@ -1,4 +1,9 @@
-version: "2"
+version: "2.3"
+
+volumes:
+  erpnext_sites:
+  erpnext_logs:
+  erpnext_db:
 
 services:
   # https://docs.docker.com/docker-hub/builds/automated-testing/
@@ -28,8 +33,10 @@ services:
     volumes_from:
       - erpnext_app
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+      - erpnext_sites:/home/frappe/frappe-bench/sites
+      - erpnext_logs:/home/frappe/frappe-bench/logs
+      #- /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
 
   erpnext_app:
     image: ${IMAGE_NAME}
@@ -37,7 +44,7 @@ services:
     command: app
     #restart: always
     ports:
-      - 8000:8000
+      - "8000:8000"
     depends_on:
       - erpnext_db
     links:
@@ -99,10 +106,10 @@ services:
       #- EMAIL_ACCOUNT_ADDRESS_ACCOUNT=${EMAIL_ACCOUNT_ADDRESS_ACCOUNT}
       #- EMAIL_ACCOUNT_PASSWORD=${EMAIL_ACCOUNT_PASSWORD}
     volumes:
-      - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
-      - /srv/erpnext/frappe/logs:/home/frappe/frappe-bench/logs
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+      - erpnext_sites:/home/frappe/frappe-bench/sites
+      - erpnext_logs:/home/frappe/frappe-bench/logs
+      #- /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
 
   erpnext_web:
     image: nginx:alpine
@@ -118,9 +125,9 @@ services:
     depends_on:
       - erpnext_app
     ports:
-      - 80:80
+      - "80:80"
       # If you need SSL connection
-      # - '443:443'
+      # - "443:443"
     links:
       - erpnext_app
       - erpnext_socketio
@@ -137,7 +144,7 @@ services:
       - MYSQL_USER=${ERPNEXT_DB_NAME}
       - MYSQL_PASSWORD=${ERPNEXT_DB_PWD}
     volumes:
-      - /srv/erpnext/db:/var/lib/mysql
+      - erpnext_db:/var/lib/mysql
 
   erpnext_scheduler:
     image: ${IMAGE_NAME}
@@ -148,9 +155,9 @@ services:
       - erpnext_app
     volumes_from:
       - erpnext_app
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+    #volumes:
+    #  - /etc/localtime:/etc/localtime:ro
+    #  - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_default:
     image: ${IMAGE_NAME}
@@ -164,9 +171,9 @@ services:
       - DOCKER_APPS_TIMEOUT=900
     volumes_from:
       - erpnext_app
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+    #volumes:
+    #  - /etc/localtime:/etc/localtime:ro
+    #  - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_long:
     image: ${IMAGE_NAME}
@@ -180,9 +187,9 @@ services:
       - DOCKER_APPS_TIMEOUT=900
     volumes_from:
       - erpnext_app
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+    #volumes:
+    #  - /etc/localtime:/etc/localtime:ro
+    #  - /etc/timezone:/etc/timezone:ro
 
   erpnext_worker_short:
     image: ${IMAGE_NAME}
@@ -196,9 +203,9 @@ services:
       - DOCKER_APPS_TIMEOUT=900
     volumes_from:
       - erpnext_app
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+    #volumes:
+    #  - /etc/localtime:/etc/localtime:ro
+    #  - /etc/timezone:/etc/timezone:ro
 
   erpnext_socketio:
     image: ${IMAGE_NAME}
@@ -206,7 +213,7 @@ services:
     command: node-socketio
     #restart: always
     ports:
-      - 3000:3000
+      - "3000:3000"
     depends_on:
       - erpnext_app
     environment:
@@ -214,9 +221,9 @@ services:
       - DOCKER_APPS_TIMEOUT=900
     volumes_from:
       - erpnext_app
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+    #volumes:
+    #  - /etc/localtime:/etc/localtime:ro
+    #  - /etc/timezone:/etc/timezone:ro
 
   erpnext_redis_cache:
     image: redis:alpine
@@ -232,14 +239,14 @@ services:
     image: redis:alpine
     container_name: erpnext_redis_queue
     #restart: always
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+    #volumes:
+    #  - /etc/localtime:/etc/localtime:ro
+    #  - /etc/timezone:/etc/timezone:ro
 
   erpnext_redis_socketio:
     image: redis:alpine
     container_name: erpnext_redis_socketio
     #restart: always
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+    #volumes:
+    #  - /etc/localtime:/etc/localtime:ro
+    #  - /etc/timezone:/etc/timezone:ro
