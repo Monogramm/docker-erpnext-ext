@@ -1,4 +1,4 @@
-version: "2.3"
+version: "2.4"
 
 volumes:
   erpnext_sites:
@@ -125,9 +125,9 @@ services:
     depends_on:
       - erpnext_app
     ports:
-      - "80:80"
+      - "8080:80"
       # If you need SSL connection
-      # - "443:443"
+      # - "8443:443"
     links:
       - erpnext_app
       - erpnext_socketio
@@ -137,6 +137,12 @@ services:
     container_name: erpnext_db
     #restart: always
     command: --character_set_client=utf8 --bind-address=0.0.0.0 --character-set-client-handshake=FALSE --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --sql-mode="ALLOW_INVALID_DATES"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "--user=${FRAPPE_DB_NAME}", "--password=${FRAPPE_DB_PWD}"]
+      timeout: 10s
+      retries: 5
+    expose:
+      - '3306'
     environment:
       - MYSQL_ROOT_PASSWORD=${ERPNEXT_DB_ROOT_PWD}
       # Following parameters are not needed with Frappe 12 or higher since it will create DB itself
@@ -145,6 +151,8 @@ services:
       - MYSQL_PASSWORD=${ERPNEXT_DB_PWD}
     volumes:
       - erpnext_db:/var/lib/mysql
+      #- /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
 
   erpnext_scheduler:
     image: ${IMAGE_NAME}
@@ -232,8 +240,8 @@ services:
     #restart: always
     volumes:
       - ./services/erpnext/conf/redis_cache.conf:/etc/conf.d/redis.conf:ro
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+      #- /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
 
   erpnext_redis_queue:
     image: redis:alpine
