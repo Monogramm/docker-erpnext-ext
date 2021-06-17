@@ -45,12 +45,12 @@ Open Source ERP built for the web.
 
 <!-- >Docker Tags -->
 
--   13.0.0-debian 13.0-debian 13-debian  (`images/13/debian/Dockerfile`)
--   13.0.0-debian-slim 13.0-debian-slim 13-debian-slim  (`images/13/debian-slim/Dockerfile`)
--   13.0.0-alpine 13.0-alpine 13-alpine 13.0.0 13.0 13  (`images/13/alpine/Dockerfile`)
--   12.17.0-debian 12.17-debian 12-debian  (`images/12/debian/Dockerfile`)
--   12.17.0-debian-slim 12.17-debian-slim 12-debian-slim  (`images/12/debian-slim/Dockerfile`)
--   12.17.0-alpine 12.17-alpine 12-alpine 12.17.0 12.17 12  (`images/12/alpine/Dockerfile`)
+-   13.5.0-debian 13.5-debian 13-debian  (`images/13/debian/Dockerfile`)
+-   13.5.0-debian-slim 13.5-debian-slim 13-debian-slim  (`images/13/debian-slim/Dockerfile`)
+-   13.5.0-alpine 13.5-alpine 13-alpine 13.5.0 13.5 13  (`images/13/alpine/Dockerfile`)
+-   12.22.0-debian 12.22-debian 12-debian  (`images/12/debian/Dockerfile`)
+-   12.22.0-debian-slim 12.22-debian-slim 12-debian-slim  (`images/12/debian-slim/Dockerfile`)
+-   12.22.0-alpine 12.22-alpine 12-alpine 12.22.0 12.22 12  (`images/12/alpine/Dockerfile`)
 -   11.1.x-debian 11.1-debian 11-debian  (`images/11/debian/Dockerfile`)
 -   11.1.x-debian-slim 11.1-debian-slim 11-debian-slim  (`images/11/debian-slim/Dockerfile`)
 -   11.1.x-alpine 11.1-alpine 11-alpine 11.1.x 11.1 11  (`images/11/alpine/Dockerfile`)
