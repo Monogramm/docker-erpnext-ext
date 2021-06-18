@@ -19,6 +19,12 @@ export DOCKERFILE_PATH=Dockerfile
 export DOCKER_TAG=11.1
 export IMAGE_NAME=${DOCKER_REPO}:${DOCKER_TAG}
 
+if [ -n "${DOCKER_REGISTRY}" ]; then
+    export IMAGE_NAME=${DOCKER_REGISTRY}/${DOCKER_REPO}:${DOCKER_TAG}
+else
+    export IMAGE_NAME=${DOCKER_REPO}:${DOCKER_TAG}
+fi
+
 #### this is not the best practice to put password in a git repository
 #### so please be super careful with your code and docker-image
 #### PLEASE MAKE SURE YOUR REPOSITORY IN BOTH GITHUB AND DOCKERHUB IS SET TO PRIVATE
