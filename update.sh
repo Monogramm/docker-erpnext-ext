@@ -24,8 +24,8 @@ function version_greater_or_equal() {
 	[[ "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1" || "$1" == "$2" ]];
 }
 
-min_version=10
-dockerLatest=12
+min_version=11
+dockerLatest=13
 dockerDefaultVariant='alpine'
 
 dockerRepo="monogramm/docker-erpnext-ext"
@@ -33,7 +33,6 @@ latests=( $( curl -fsSL 'https://api.github.com/repos/frappe/erpnext/tags' |tac|
 	grep -oE '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | \
 	sort -urV )
 	11.1.x
-	10.x.x
 	develop
 )
 
