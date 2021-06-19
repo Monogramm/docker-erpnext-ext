@@ -16,8 +16,14 @@ COMMIT_MSG=$(git log -1 --format=%s)
 
 export DOCKER_REPO=monogramm/docker-erpnext-ext
 export DOCKERFILE_PATH=Dockerfile
-export DOCKER_TAG=12.17
+export DOCKER_TAG=12.22
 export IMAGE_NAME=${DOCKER_REPO}:${DOCKER_TAG}
+
+if [ -n "${DOCKER_REGISTRY}" ]; then
+    export IMAGE_NAME=${DOCKER_REGISTRY}/${DOCKER_REPO}:${DOCKER_TAG}
+else
+    export IMAGE_NAME=${DOCKER_REPO}:${DOCKER_TAG}
+fi
 
 #### this is not the best practice to put password in a git repository
 #### so please be super careful with your code and docker-image
